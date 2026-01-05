@@ -9,7 +9,17 @@ $$ | \psi \rangle = \alpha |0\rangle +\beta |1\rangle = \begin{bmatrix} \alpha \
 \beta \end{bmatrix}  $$ 
 $$  P(0) = |\alpha|^2 $$ 
 $$ P(1) = |\beta|^2 $$
-$$ \langle \psi | Z | \psi \rangle $$ 
+$$ R_y(\theta) = \begin{bmatrix} cos(\frac{\theta}{2}) & -sin(\frac{\theta}{2}) \\
+sin(\frac{\theta}{2}) & cos(\frac{\theta}{2})
+\end{bmatrix}$$ 
+$$ R_y(\theta)|0\rangle = \begin{bmatrix} cos(\frac{\theta}{2}) & -sin(\frac{\theta}{2}) \\
+sin(\frac{\theta}{2}) & cos(\frac{\theta}{2})
+\end{bmatrix} 
+\begin{bmatrix} 1 \\
+0 \end{bmatrix} = \begin{bmatrix} cos(\frac{\theta}{2}) \\
+sin(\frac{\theta}{2})
+\\end{bmatrix}
+$$
 $$ Z = \begin{bmatrix} 1 & 0 \\
 0 & -1 \end{bmatrix} $$
 
