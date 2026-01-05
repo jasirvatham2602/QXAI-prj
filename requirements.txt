@@ -1,0 +1,9 @@
+torch>=2.0
+torchvision>=0.15
+numpy>=1.24.0
+scikit-learn>=1.2.0
+matplotlib>=3.7.0
+pandas>=2.0.0 
+seaborn>=0.13.0
+pennylane>=0.33.0
+autoray>=0.6.6
