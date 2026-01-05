@@ -43,6 +43,7 @@ $$ \langle Z \rangle = \langle \psi | Z | \psi \rangle =  \begin{bmatrix} \bar{\
 <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/XAI_training.png" width="100%" /> 
 <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/QXAI_training.png" width="100%" /> 
 
+The QXAI model was trained for 5 epochs, while the XAI model was trained for 10 epochs; when the models were trained for higher epochs, overfitting occurred. The QXAI model needed less time to train since it has fewer trainable parameters in its architecture, with only 16 trainable parameters in its 4 quantum layers and a final hidden layer of 64 neurons, fewer than its XAI counterpart. Both QXAI and XAI's train loss and validation curves generally decreased during training. A increasing validation curve and a decreasing training loss curve indicate that the model is likely overfitting, which is when a model studies the training data too well, performing worse on unseen data. Therefore, the models are not overfit. Both QXAI and XAI training and validation accuracy graphs show an upward trend.      
 # Statistical Comparison (QXAI vs. XAI with McNemar's Test)
 <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/Contingency_Matrix.png" width="500" /> 
 
@@ -60,8 +61,8 @@ The QXAI model received an accuracy of 86.52% while the XAI model received an ac
 # How to Run
 1. Clone the repository with "git clone https://github.com/jasirvatham2602/QXAI-prj" on the terminal, or simply download the contents of the repository as a zip file and extract it on windows
 2. Open the QXAI-prj folder on the terminal/command prompt with "cd QXAI-prj"
-3. The data has been compressed into a zip folder for convenience. Simply unzip it with "unzip data.zip" on terminal or right click on the data file and unzip it on windows
+3. The data has been compressed into a zip folder for convenience. Simply unzip it with "unzip data.zip" on the terminal or right-click on the data file and unzip it on Windows
 4. Now that the data file has been unzipped, we must install the needed dependencies with "pip install -r requirements.txt" or "pip3 install -r requirements.txt", if pip doesn't work.
-5. Now run the code with "python main.py" or "python3 main.py" (Make sure python is already installed on the computer. If it is not, you can download it at python.org)
+5. Now run the code with "python main.py" or "python3 main.py" (Make sure Python is already installed on the computer. If it is not, you can download it at python.org)
 # Limitation and Future work
 # Acknowledgements 
