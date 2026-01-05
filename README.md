@@ -39,6 +39,11 @@ $$ \langle Z \rangle = \langle \psi | Z | \psi \rangle =  \begin{bmatrix} \bar{\
 \beta 
 \end{bmatrix} = \alpha * \bar{\alpha} - \beta * \bar{\beta} = |\alpha|^2 - |\beta|^2 = P(0) - P(1) $$
 # Explainable AI (Quantum and Classical Saliency Maps)
+
+<img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/sidebysideSaliencyMap.png" width="100%" /> 
+
+Above is a Classical and Quantum Saliency Map produced by the models side by side. Both of the models produced the correct diagnosis of PD, but highlighted slightly different regions. Given that both architectures use the same 1280-length feature vector, the highlighted features will be similar, which is the case. However, the Quantum Saliency Map appears to be dimmer, focusing mainly on a certain region on the bottom half of the MRI scan, while the Classical Saliency Map produced was brighter and highlighted multiple regions. 
+
 # Results 
 <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/XAI_training.png" width="100%" /> 
 <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/QXAI_training.png" width="100%" /> 
