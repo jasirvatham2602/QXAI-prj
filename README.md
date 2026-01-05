@@ -6,7 +6,9 @@ Investigates whether a Quantum Explainable AI (QXAI) model that classifies Alzhe
 &emsp;  Comparitively the QXAI model's architecture is fairly complex; since quantum circuits can only have a limited number of qubits, a complex architecture is needed to express the features from a MRI scan into a couple of qubits. The QXAI architecture starts with a classical neural network, then goes into a variational quantum circuit (VQC), and finally back to a simple neural network to obtain 3 output neurons. The QXAI architecture begins with the EfficientNetB0 backbone to obtain a 1280-length feature vector. Simulating 1280 qubits is infeasible due to limitations of quantum technology. Therefore, this feature is passed into a fully connected hidden layer with 4 neurons. Now we have 4 numbers to represent the features of the MRI scan. Quantum encoding converts these numbers to a qubit state on the Bloch sphere, where the 0 state is rotated with the Ry gate by the number itself; this happens to each of the 4 numbers to obtain 4 qubits. A quantum layer consists of rotations of each of the 4 qubits by a certain amount  $\theta_1$, $\theta_2$, $\theta_3$, and $\theta_4$, which are trainable weights. Then a CNOT gate is applied to wires (0, 1), then (1,2), and finally wires (2,3) to create entanglement where the states of the qubits now depend on each other. The last part of the Quantum circuit involves measurement. 
 
 $$ | \psi \rangle = \alpha |0\rangle +\beta |1\rangle = \begin{bmatrix} \alpha \\
-\beta \end{bmatrix},   $$
+\beta \end{bmatrix},  $$
+$$  P(0) = |\alpha|^2 $$ 
+$$ P(1) = |\beta|^2 $$
 $$ \langle \psi | Z | \psi \rangle $$ 
 $$ Z = \begin{bmatrix} 1 & 0 \\
 0 & -1 \end{bmatrix} $$
@@ -22,7 +24,7 @@ $$ \langle \psi | Z | \psi \rangle =  \begin{bmatrix} \bar{\alpha}
 \end{bmatrix}
 \begin{bmatrix} \alpha \\
 \beta 
-\end{bmatrix} = \alpha * \bar{\alpha} - \beta * \bar{\beta} = |\alpha|^2 - |\beta|^2
+\end{bmatrix} = \alpha * \bar{\alpha} - \beta * \bar{\beta} = |\alpha|^2 - |\beta|^2 = P(0) - P(1) 
 $$
 # Explainable AI (Quantum and Classical Saliency Maps)
 # Results 
