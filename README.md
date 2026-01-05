@@ -46,7 +46,9 @@ $$ \langle Z \rangle = \langle \psi | Z | \psi \rangle =  \begin{bmatrix} \bar{\
 &emsp; The chi-squared value can be calculated using the following formula.
 
 $$\chi^2 = \frac{(|b-c|-1)^2}{b+c}$$
-
+$$ df = 1$$
+$$ \alpha = 0.10 $$
+The QXAI model received an accuracy of 86.52% while the XAI model received an accuracy of 89.46%, providing some evidence that the XAI model is better than the QXAI model. To det
 # How to Run
 1. Clone the repository with "git clone https://github.com/jasirvatham2602/QXAI-prj" on the terminal, or simply download the contents of the repository as a zip file and extract it on windows
 2. Open the QXAI-prj folder on the terminal/command prompt with "cd QXAI-prj"
