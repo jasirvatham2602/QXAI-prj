@@ -10,6 +10,6 @@ Investigates whether a Quantum Explainable AI (QXAI) model that classifies Alzhe
 2. Open the QXAI-prj folder on the terminal/command prompt with "cd QXAI-prj"
 3. The data has been compressed into a zip folder for convenience. Simply unzip it with "unzip data.zip" on terminal or right click on the data file and unzip it on windows
 4. Now that the data file has been unzipped, we must install the needed dependencies with "pip install -r requirements.txt" or "pip3 install -r requirements.txt", if pip doesn't work.
-5. 
+5. Now run the code with "python main.py" or "python3 main.py" (Make sure python is already installed on the computer. If it is not, you can download it at python.org)
 # Limitation and Future work
 # Acknowledgements 
