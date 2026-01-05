@@ -2,9 +2,8 @@
 Investigates whether a Quantum Explainable AI (QXAI) model that classifies Alzheimer’s disease, Parkinson’s disease, and Control performs better than its XAI classical counterpart. Implements a VQC–CNN (Variational Quantum Circuit–Convolutional Neural Network) and compares XAI and QXAI Saliency Maps (XAI:86.76% and  QXAI:84.56% test accuracy).
 # Motivation and Research Question
 # Model Architectures 
-The XAI model's architecture uses a pretrained EfficientNetB0 backbone with frozen weights to obtain a 1280-length vector; this 1280-length feature vector is then fed into a fully connected hidden layer of 256 neurons with a ReLU activation function. Finally, there is the output layer with 3 neurons with logits to determine if the model predicts Alzheimer's disease, Parkinson's disease, or Control. 
-
-Comparitively the QXAI model's architecture is fairly complex; since quantum circuits can only have a limited number of qubits, a complex architecture is needed to express the features from a MRI scan into a couple of qubits. 
+&emsp;  The XAI model's architecture uses a pretrained EfficientNetB0 backbone with frozen weights to obtain a 1280-length vector; this 1280-length feature vector is then fed into a fully connected hidden layer of 256 neurons with a ReLU activation function. Finally, there is the output layer with 3 neurons with logits to determine if the model predicts Alzheimer's disease, Parkinson's disease, or Control. \
+&emsp;  Comparitively the QXAI model's architecture is fairly complex; since quantum circuits can only have a limited number of qubits, a complex architecture is needed to express the features from a MRI scan into a couple of qubits. The QXAI architecture starts with a classical neural network, then goes into a variational quantum circuit (VQC) and final back to a simple neural network to finally obtain 3 output neurons. 
 # Explainable AI (Quantum and Classical Saliency Maps)
 # Results 
 # Statistical Comparison (QXAI vs. XAI with McNemar's Test)
