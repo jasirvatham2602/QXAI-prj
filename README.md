@@ -45,10 +45,15 @@ $$ \langle Z \rangle = \langle \psi | Z | \psi \rangle =  \begin{bmatrix} \bar{\
 
 &emsp; The chi-squared value can be calculated using the following formula.
 
-$$\chi^2 = \frac{(|b-c|-1)^2}{b+c}$$
-$$ df = 1$$
-$$ \alpha = 0.10 $$
-The QXAI model received an accuracy of 86.52% while the XAI model received an accuracy of 89.46%, providing some evidence that the XAI model is better than the QXAI model. To det
+$$\chi^2 = \frac{(|b-c|-1)^2}{b+c} = \frac{11^2}{40} = 3.025$$
+
+$$df = 1$$
+
+$$\alpha = 0.10$$
+
+$$p-value = P(\chi^2 > 3.025) = 0.082 < 0.10$$
+
+The QXAI model received an accuracy of 86.52% while the XAI model received an accuracy of 89.46%, providing some evidence that the XAI model is better than the QXAI model. McNemar's test with correction was employed to determine whether there was convincing evidence of one model performing better than the other. Because a p-value of 0.082 < 0.10, there is convincing evidence that one model is better than the other, and therefore, there is convincing evidence that the QXAI model performed worse than the XAI model. 
 # How to Run
 1. Clone the repository with "git clone https://github.com/jasirvatham2602/QXAI-prj" on the terminal, or simply download the contents of the repository as a zip file and extract it on windows
 2. Open the QXAI-prj folder on the terminal/command prompt with "cd QXAI-prj"
