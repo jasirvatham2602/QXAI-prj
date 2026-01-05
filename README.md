@@ -1,5 +1,5 @@
 # QXAI-prj
-Investigates whether a Quantum Explainable AI (QXAI) model that classifies Alzheimer’s disease, Parkinson’s disease, and Control performs better than its XAI classical counterpart. Implements a VQC–CNN (Variational Quantum Circuit–Convolutional Neural Network) and compares XAI and QXAI Saliency Maps (XAI:86.76% and  QXAI:84.56% test accuracy).
+Investigates whether a Quantum Explainable AI (QXAI) model that classifies Alzheimer’s disease, Parkinson’s disease, and Control performs better than its XAI classical counterpart. Implements a VQC–CNN (Variational Quantum Circuit–Convolutional Neural Network) and compares XAI and QXAI Saliency Maps (XAI:89.46% and  QXAI:86.52% test accuracy).
 # Motivation and Research Question
 # Model Architectures 
 &emsp;  The XAI model's architecture uses a pretrained EfficientNetB0 backbone with frozen weights to obtain a 1280-length vector; this 1280-length feature vector is then fed into a fully connected hidden layer of 256 neurons with a ReLU activation function. Finally, there is the output layer with 3 neurons with logits to determine if the model predicts Alzheimer's disease, Parkinson's disease, or Control. 
@@ -40,6 +40,9 @@ $$ \langle Z \rangle = \langle \psi | Z | \psi \rangle =  \begin{bmatrix} \bar{\
 \end{bmatrix} = \alpha * \bar{\alpha} - \beta * \bar{\beta} = |\alpha|^2 - |\beta|^2 = P(0) - P(1) $$
 # Explainable AI (Quantum and Classical Saliency Maps)
 # Results 
+<img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/XAI_training.png" width="100%" /> 
+<img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/QXAI_training.png" width="100%" /> 
+
 # Statistical Comparison (QXAI vs. XAI with McNemar's Test)
 <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/Contingency_Matrix.png" width="500" /> 
 
