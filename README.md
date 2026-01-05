@@ -48,6 +48,7 @@ The QXAI model was trained for 5 epochs, while the XAI model was trained for 10 
   <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/cm_XAI.png" width="500" /> 
   <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/cm_QXAI.png" width="500" /> 
 </div>
+Above is the Confusion Matrices of QXAI and XAI models for the test dataset. The QXAI model received an accuracy of 86.52%, while the XAI model received an accuracy of 89.46%. Both models performed well at identifying PD. Both models struggle with the classification of AD and CONTROL. The QXAI correctly identified 191 AD, while XAI correctly identified 179 AD; the XAI model correctly identified 134 CONTROL cases, while the QXAI model correctly classified 110 CONTROL cases. Overall, both models performed well, with the XAI model performing better.   
 
 # Statistical Comparison (QXAI vs. XAI with McNemar's Test)
 <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/Contingency_Matrix.png" width="500" /> 
