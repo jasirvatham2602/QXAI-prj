@@ -43,7 +43,12 @@ $$ \langle Z \rangle = \langle \psi | Z | \psi \rangle =  \begin{bmatrix} \bar{\
 <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/XAI_training.png" width="100%" /> 
 <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/QXAI_training.png" width="100%" /> 
 
-The QXAI model was trained for 5 epochs, while the XAI model was trained for 10 epochs; when the models were trained for higher epochs, overfitting occurred. The QXAI model needed less time to train since it has fewer trainable parameters in its architecture, with only 16 trainable parameters in its 4 quantum layers and a final hidden layer of 64 neurons, fewer than its XAI counterpart. Both QXAI and XAI's train loss and validation curves generally decreased during training. A increasing validation curve and a decreasing training loss curve indicate that the model is likely overfitting, which is when a model studies the training data too well, performing worse on unseen data. Therefore, the models are not overfit. Both QXAI and XAI training and validation accuracy graphs show an upward trend.      
+The QXAI model was trained for 5 epochs, while the XAI model was trained for 10 epochs; when the models were trained for higher epochs, overfitting occurred. The QXAI model needed less time to train since it has fewer trainable parameters in its architecture, with only 16 trainable parameters in its 4 quantum layers and a final hidden layer of 64 neurons, fewer than its XAI counterpart. Both QXAI and XAI's train loss and validation curves generally decreased during training. A increasing validation curve and a decreasing training loss curve indicate that the model is likely overfitting, which is when a model studies the training data too well, performing worse on unseen data. Therefore, the models are not overfit. Both QXAI and XAI training and validation accuracy graphs show an upward trend.  
+<div>
+  <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/cm_XAI.png" width="500" /> 
+  <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/cm_QXAI.png" width="500" /> 
+</div>
+
 # Statistical Comparison (QXAI vs. XAI with McNemar's Test)
 <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/Contingency_Matrix.png" width="500" /> 
 
