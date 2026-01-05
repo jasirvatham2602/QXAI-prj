@@ -37,12 +37,15 @@ $$ \langle Z \rangle = \langle \psi | Z | \psi \rangle =  \begin{bmatrix} \bar{\
 \end{bmatrix}
 \begin{bmatrix} \alpha \\
 \beta 
-\end{bmatrix} = \alpha * \bar{\alpha} - \beta * \bar{\beta} = |\alpha|^2 - |\beta|^2 = P(0) - P(1) 
-$$
+\end{bmatrix} = \alpha * \bar{\alpha} - \beta * \bar{\beta} = |\alpha|^2 - |\beta|^2 = P(0) - P(1) $$
 # Explainable AI (Quantum and Classical Saliency Maps)
 # Results 
 # Statistical Comparison (QXAI vs. XAI with McNemar's Test)
-<img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/cm_QXAI_vs_XAI.png" width="500" /> 
+<img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/Contingency_Matrix.png" width="500" /> 
+
+&emsp; The chi-squared value can be calculated using the following formula.
+
+$$\chi^2 = \frac{(|b-c|-1)^2}{b+c}$$
 
 # How to Run
 1. Clone the repository with "git clone https://github.com/jasirvatham2602/QXAI-prj" on the terminal, or simply download the contents of the repository as a zip file and extract it on windows
