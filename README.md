@@ -13,10 +13,15 @@ Z =
 1 & 0 \\
 0 & -1
 \end{bmatrix}
+
+
 $$
 
 $$ \langle \psi | = \begin{bmatrix} \bar{\alpha} & \bar {\beta} \\ \end{bmatrix} $$
-$$ \langle \psi | = \begin{bmatrix} \bar{\alpha} & \bar {\beta} \\ \end{bmatrix} $$
+$$ \langle \psi | Z = \begin{bmatrix} \bar{\alpha} & \bar {\beta} \\ \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}  =  \begin{bmatrix} \bar{\alpha} \\
+-\bar{\beta}
+\end{bmatrix}
+$$
 # Explainable AI (Quantum and Classical Saliency Maps)
 # Results 
 # Statistical Comparison (QXAI vs. XAI with McNemar's Test)
