@@ -42,6 +42,8 @@ $$
 # Explainable AI (Quantum and Classical Saliency Maps)
 # Results 
 # Statistical Comparison (QXAI vs. XAI with McNemar's Test)
+<img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/cm_QXAI_vs_XAI.png" width="500" /> 
+
 # How to Run
 1. Clone the repository with "git clone https://github.com/jasirvatham2602/QXAI-prj" on the terminal, or simply download the contents of the repository as a zip file and extract it on windows
 2. Open the QXAI-prj folder on the terminal/command prompt with "cd QXAI-prj"
