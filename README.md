@@ -12,16 +12,17 @@ $$ Z = \begin{bmatrix} 1 & 0 \\
 0 & -1 \end{bmatrix} $$
 
 $$ \langle \psi | = \begin{bmatrix} \bar{\alpha} & \bar {\beta} \\ \end{bmatrix} $$
-$$ \langle \psi | Z = \begin{bmatrix} \bar{\alpha} & \bar {\beta} \\ \end{bmatrix} \begin{bmatrix} 1 & 0 \\
+$$ \langle \psi | Z = \begin{bmatrix} \bar{\alpha} & \bar{\beta} \\ \end{bmatrix} \begin{bmatrix} 1 & 0 \\
 0 & -1 \end{bmatrix}  =  \begin{bmatrix} \bar{\alpha} \\
 -\bar{\beta}
 \end{bmatrix}
 $$
-$$ \langle \psi | Z | \psi \rangle =  \begin{bmatrix} \bar{\alpha} \\
+$$ \langle \psi | Z | \psi \rangle =  \begin{bmatrix} \bar{\alpha} 
 -\bar{\beta}
 \end{bmatrix}
 \begin{bmatrix} \alpha \\
-\beta \end{bmatrix} = \alpha * \bar{alpha} - \beta * \bar{\beta} = |\alpha|^2 - |\beta|^2
+\beta 
+\end{bmatrix} = \alpha * \bar{\alpha} - \beta * \bar{\beta} = |\alpha|^2 - |\beta|^2
 $$
 # Explainable AI (Quantum and Classical Saliency Maps)
 # Results 
