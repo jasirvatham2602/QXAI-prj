@@ -6,5 +6,6 @@ Investigates whether a Quantum Explainable AI (QXAI) model that classifies Alzhe
 # Results 
 # Statistical Comparison (QXAI vs. XAI with McNemar's Test)
 # How to Run
+1. Clone the repository with "git clone https://github.com/jasirvatham2602/QXAI-prj" on the terminal, or simply download the contents of the repository as a zip file and extract it on windows
 # Limitation and Future work
 # Acknowledgements 
