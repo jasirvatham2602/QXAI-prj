@@ -34,12 +34,11 @@ $$ Z = \begin{bmatrix} 1 & 0 \\
 
 $$ \langle \psi | = \begin{bmatrix} \bar{\alpha} & \bar {\beta} \\ \end{bmatrix} $$
 $$ \langle \psi | Z = \begin{bmatrix} \bar{\alpha} & \bar{\beta} \\ \end{bmatrix} \begin{bmatrix} 1 & 0 \\
-0 & -1 \end{bmatrix}  =  \begin{bmatrix} \bar{\alpha} \\
+0 & -1 \end{bmatrix}  =  \begin{bmatrix} \bar{\alpha} & 
 -\bar{\beta}
 \end{bmatrix}
 $$
-$$ \langle Z \rangle = \langle \psi | Z | \psi \rangle =  \begin{bmatrix} \bar{\alpha} 
--\bar{\beta}
+$$ \langle Z \rangle = \langle \psi | Z | \psi \rangle =  \begin{bmatrix} \bar{\alpha} & -\bar{\beta}
 \end{bmatrix}
 \begin{bmatrix} \alpha \\
 \beta 
