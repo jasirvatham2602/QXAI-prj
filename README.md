@@ -47,7 +47,7 @@ Above is a Classical and Quantum Saliency Map produced by the models side by sid
 
 <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/sidebysideSaliencyMap2.png" width="100%" /> 
 
-Above is another side-by-side Saliency Maps of the QXAI and XAI model. However, the models disagreed on their diagnoses; the XAI model correctly predicted CONTROL, while the QXAI model predicted AD. The XAI model highlighted multiple regions confidently; specifically, it highlighted the middle region of the MRI scan in bright yellow. However, the QXAI model didn't really highlight much, possibly indicating that it may not have been confident in its diagnosis. 
+Above is another side-by-side Saliency Maps of the QXAI and XAI models. However, the models disagreed on their diagnoses; the XAI model correctly predicted CONTROL, while the QXAI model predicted AD. The XAI model highlighted multiple regions confidently; specifically, it highlighted the middle region of the MRI scan in bright yellow. However, the QXAI model didn't really highlight much, possibly indicating that it may not have been confident in its diagnosis. 
 
 # Results 
 <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/XAI_training.png" width="100%" /> 
@@ -75,13 +75,13 @@ $$p-value = P(\chi^2 > 3.025) = 0.082 < 0.10$$
 
 The QXAI model received an accuracy of 86.52% while the XAI model received an accuracy of 89.46%, providing some evidence that the XAI model is better than the QXAI model. McNemar's test with correction was employed to determine whether there was convincing evidence of one model performing better than the other. Because a p-value of 0.082 < 0.10, there is convincing evidence that one model is better than the other, and therefore, there is convincing evidence that the QXAI model performed worse than the XAI model. 
 # How to Run
-1. Clone the repository with "git clone https://github.com/jasirvatham2602/QXAI-prj" on the terminal, or simply download the contents of the repository as a zip file and extract it on windows
+1. Clone the repository with "git clone https://github.com/jasirvatham2602/QXAI-prj" on the terminal, or simply download the contents of the repository as a zip file and extract it on Windows.
 2. Open the QXAI-prj folder on the terminal/command prompt with "cd QXAI-prj"
 3. The data has been compressed into a zip folder for convenience. Simply unzip it with "unzip data.zip" on the terminal, or right-click on the data file and unzip it on Windows
 4. Now that the data file has been unzipped, we must install the needed dependencies with "pip install -r requirements.txt" or "pip3 install -r requirements.txt", if pip doesn't work.
 5. Now run the code with "python main.py" or "python3 main.py" (Make sure Python is already installed on the computer. If it is not, you can download it at python.org)
 # Limitation and Future work
-Since access to a quantum computer was not available, simulation of qubits for the quantum circuit was done by Pennylane-- a common framework used in Quantum Computing. Access to a Quantum Computer may have increased the performance of the model. 
+Since access to a quantum computer was not available, simulation of qubits for the quantum circuit was done by PennyLane-- a common framework used in Quantum Computing. Access to a Quantum Computer may have increased the performance of the model. 
 In the future, other Quantum Explainable AI techniques can be implemented to further help create trust between Quantum AI models and neurologists. Moreover, the classification of other neurological disorders can be done in the future with QXAI technology to help provide quick and precise diagnoses to patients with other neurological diseases.  
 # Acknowledgements 
-I would like to acknowledge all of the dependencies used in this passion project, such as Pennylane, PyTorch, and more, as seen in the requirements.txt file. 
+I would like to acknowledge all of the dependencies used in this passion project, such as PennyLane, PyTorch, Qiskit, matplotlib, seaborn, numpy, and more, as seen in the requirements.txt file. Pennylane was used to design the Variational Quantum Circuit of the QXAI architecture, and PyTorch was used for the classical AI parts. Other dependencies, such as numpy, matplotlib, and seaborn, were also used. Additionally, Qiskit was used to make the VQC diagram to help explain the QXAI architecture. 
