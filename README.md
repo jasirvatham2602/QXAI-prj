@@ -1,6 +1,7 @@
 # QXAI-prj
-Investigates whether a Quantum Explainable AI (QXAI) model that classifies Alzheimer’s disease, Parkinson’s disease, and Control performs better than its XAI classical counterpart. Implements a VQC–CNN (Variational Quantum Circuit–Convolutional Neural Network) and compares XAI and QXAI Saliency Maps (XAI:89.46% and  QXAI:86.52% test accuracy).
-# Motivation and Research Question
+Investigates whether a Quantum Explainable AI (QXAI) model that classifies Alzheimer’s disease (AD), Parkinson’s disease (PD), and Control performs better than its XAI classical counterpart. Implements a VQC–CNN (Variational Quantum Circuit–Convolutional Neural Network) and compares XAI and QXAI Saliency Maps (XAI:89.46% and  QXAI:86.52% test accuracy).
+# Motivation 
+In december 4th, 2025, my research on the use of Transfer Learning, Ensemble Learning, and Explainable AI to produce precise and interpretable diagnoses, building trust between neurologists and AI, was published in the American Journal of Student Research. The proposed Ensemble Learning model received an accuracy of 97.04% using classical neural networks. After learning Quantum Computing from CSI 4900 at Oakland University, I wanted to learn about how Quantum Computing is integrated with classical neural networks to produce a Quantum-classical hybrid. Therefore, I explored how to design a Quantum AI architecture to classify AD, PD, and Control. Furthermore, I produced Quantum Saliency Maps to allow side-by-side comparisons between the XAI and QXAI models. 
 # Model Architectures 
 &emsp;  The XAI model's architecture uses a pretrained EfficientNetB0 backbone with frozen weights to obtain a 1280-length vector; this 1280-length feature vector is then fed into a fully connected hidden layer of 256 neurons with a ReLU activation function. Finally, there is the output layer with 3 neurons with logits to determine if the model predicts Alzheimer's disease, Parkinson's disease, or Control. 
 
@@ -76,8 +77,11 @@ The QXAI model received an accuracy of 86.52% while the XAI model received an ac
 # How to Run
 1. Clone the repository with "git clone https://github.com/jasirvatham2602/QXAI-prj" on the terminal, or simply download the contents of the repository as a zip file and extract it on windows
 2. Open the QXAI-prj folder on the terminal/command prompt with "cd QXAI-prj"
-3. The data has been compressed into a zip folder for convenience. Simply unzip it with "unzip data.zip" on the terminal or right-click on the data file and unzip it on Windows
+3. The data has been compressed into a zip folder for convenience. Simply unzip it with "unzip data.zip" on the terminal, or right-click on the data file and unzip it on Windows
 4. Now that the data file has been unzipped, we must install the needed dependencies with "pip install -r requirements.txt" or "pip3 install -r requirements.txt", if pip doesn't work.
 5. Now run the code with "python main.py" or "python3 main.py" (Make sure Python is already installed on the computer. If it is not, you can download it at python.org)
 # Limitation and Future work
+Since access to a quantum computer was not available, simulation of qubits for the quantum circuit was done by Pennylane-- a common framework used in Quantum Computing. Access to a Quantum Computer may have increased the performance of the model. 
+In the future, other Quantum Explainable AI techniques can be implemented to further help create trust between Quantum AI models and neurologists. Moreover, the classification of other neurological disorders can be done in the future with QXAI technology to help provide quick and precise diagnoses to patients with other neurological diseases.  
 # Acknowledgements 
+I would like to acknowledge all of the dependencies used in this passion project, such as Pennylane, PyTorch, and more, as seen in the requirements.txt file. 
