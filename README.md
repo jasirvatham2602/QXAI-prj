@@ -5,7 +5,12 @@ In december 4th, 2025, my research on the use of Transfer Learning, Ensemble Lea
 # Model Architectures 
 &emsp;  The XAI model's architecture uses a pretrained EfficientNetB0 backbone with frozen weights to obtain a 1280-length vector; this 1280-length feature vector is then fed into a fully connected hidden layer of 256 neurons with a ReLU activation function. Finally, there is the output layer with 3 neurons with logits to determine if the model predicts Alzheimer's disease, Parkinson's disease, or Control. 
 
-<img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/VQC.png" width="500" /> 
+ 
+  <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/VQC.png" width="500" />  
+&emsp; &emsp;  &emsp; The VQC diagram was made with Qiskit
+
+
+
 
 &emsp;  The QXAI model employs a quantum-classical hybrid architecture. It starts with a classical neural network, then goes into a variational quantum circuit (VQC), and finally back to a simple neural network to obtain 3 output neurons. The QXAI architecture begins with the EfficientNetB0 backbone to obtain a 1280-length feature vector. Simulating 1280 qubits is infeasible due to limitations of quantum technology. Therefore, this feature is passed into a fully connected hidden layer with 4 neurons with a tanh activation function. Now we have 4 numbers between -1 and 1 to represent the features of the MRI scan. Quantum encoding then converts these numbers to a qubit state on the Bloch sphere; specifically, each qubit $| 0 \rangle$ state is rotated with the Ry gate by the $x_i$. A quantum layer consists of rotations of each of the 4 qubits by a certain amount  $\theta_1$, $\theta_2$, $\theta_3$, and $\theta_4$, which are trainable weights. Then a CNOT gate is applied to neighboring qubits to create entanglement, where the states of the qubits now depend on each other. This quantum layer is repeated 3 more times with 12 more trainable weights. The last part of the Quantum circuit involves measuring the expectation of the Pauli-Z observable, $\langle Z \rangle$, applied to each qubit. This is then fed into a linear fully connected hidden layer with 64 neurons  with a ReLU activation function, and finally, 3 output neurons.
 
