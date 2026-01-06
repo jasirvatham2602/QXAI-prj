@@ -44,6 +44,10 @@ $$ \langle Z \rangle = \langle \psi | Z | \psi \rangle =  \begin{bmatrix} \bar{\
 
 Above is a Classical and Quantum Saliency Map produced by the models side by side. Both of the models produced the correct diagnosis of PD, but highlighted slightly different regions. Given that both architectures use the same 1280-length feature vector, the highlighted features will be similar, which is the case. However, the Quantum Saliency Map appears to be dimmer, focusing mainly on a certain region on the bottom half of the MRI scan, while the Classical Saliency Map produced was brighter and highlighted multiple regions. 
 
+<img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/sidebysideSaliencyMap2.png" width="100%" /> 
+
+Above is another side-by-side Saliency Maps of the QXAI and XAI model. However, the models disagreed on their diagnoses; the XAI model correctly predicted CONTROL, while the QXAI model predicted AD. The XAI model highlighted multiple regions confidently; specifically, it highlighted the middle region of the MRI scan in bright yellow. However, the QXAI model didn't really highlight much, possibly indicating that it may not have been confident in its diagnosis. 
+
 # Results 
 <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/XAI_training.png" width="100%" /> 
 <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/QXAI_training.png" width="100%" /> 
