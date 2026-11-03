@@ -1,0 +1,12 @@
+{
+  "torch_version": "1.13.0",
+  "uses_test_images": false,
+  "actual_backend_loaded": true,
+  "validation_cases": 6,
+  "probabilities_match": true,
+  "predictions_match": true,
+  "max_classical_probability_difference": 8.344650268554688e-07,
+  "max_quantum_probability_difference": 3.0994415283203125e-06,
+  "classical_saliency_finite_nonzero": true,
+  "quantum_saliency_finite_nonzero": true
+}

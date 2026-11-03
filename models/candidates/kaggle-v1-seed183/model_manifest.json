@@ -1,0 +1,177 @@
+{
+  "model_version": "kaggle-v1-seed183",
+  "preprocessing_version": "resize224-rgb-imagenet-normalized-v2",
+  "class_names": [
+    "AD",
+    "CONTROL",
+    "PD"
+  ],
+  "mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "image_size": 224,
+  "checkpoints": {
+    "classical": {
+      "file": "xai_model.pth",
+      "sha256": "278a979646ee4308625a74c8a63c4f65eca411d68bbbd08ac4ac178cb24656f8"
+    },
+    "quantum": {
+      "file": "qxai_model.pth",
+      "sha256": "8c9d11c0f24e7030926c098d4db92bfa353546eda60e2371e198a3e85d016ecf"
+    }
+  },
+  "architecture": {
+    "classical": "efficientnet_b0_frozen_1280_256_3",
+    "quantum": "encoder1280_4_tanh_angle_x_entangler4_z4_64_3"
+  },
+  "circuit": {
+    "qubits": 4,
+    "layers": 4,
+    "encoding": "AngleEmbedding rotation X (default)",
+    "entangler": "BasicEntanglerLayers default RX with CNOT ring",
+    "readout": "Four Pauli-Z expectations",
+    "device": "default.qubit CPU simulator"
+  },
+  "dataset_url": "https://www.kaggle.com/datasets/farjanakabirsamanta/alzheimer-diseases-3-class",
+  "archive_sha256": "57a55eb74a4128e369b46c1fe1214bc35c379bb72ad619c53500c62ee43597e3",
+  "seed": 183,
+  "validation_selection": {
+    "classical": {
+      "best_validation_macro_f1": 0.93657958081755,
+      "epochs_run": 80,
+      "selected_epoch": 79
+    },
+    "quantum": {
+      "best_validation_macro_f1": 0.8442834126582199,
+      "epochs_run": 45,
+      "selected_epoch": 33
+    }
+  },
+  "held_out_metrics": {
+    "classical": {
+      "accuracy": 0.7290748898678414,
+      "balanced_accuracy": 0.6466274852932274,
+      "macro_f1": 0.6889115886513171,
+      "confusion_matrix": [
+        [
+          426,
+          213,
+          0
+        ],
+        [
+          119,
+          539,
+          4
+        ],
+        [
+          0,
+          33,
+          28
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.781651376146789,
+          "recall": 0.6666666666666666,
+          "f1": 0.7195945945945946,
+          "support": 639,
+          "recall_wilson_95_interval": [
+            0.6292161338256667,
+            0.7021252833734556
+          ]
+        },
+        "CONTROL": {
+          "precision": 0.686624203821656,
+          "recall": 0.8141993957703928,
+          "f1": 0.7449896337249481,
+          "support": 662,
+          "recall_wilson_95_interval": [
+            0.7827883168221305,
+            0.8419850349856691
+          ]
+        },
+        "PD": {
+          "precision": 0.875,
+          "recall": 0.45901639344262296,
+          "f1": 0.6021505376344086,
+          "support": 61,
+          "recall_wilson_95_interval": [
+            0.3401293229385576,
+            0.5827595186924353
+          ]
+        }
+      }
+    },
+    "quantum": {
+      "accuracy": 0.6872246696035242,
+      "balanced_accuracy": 0.6223981942713129,
+      "macro_f1": 0.6605311862570905,
+      "confusion_matrix": [
+        [
+          399,
+          240,
+          0
+        ],
+        [
+          148,
+          508,
+          6
+        ],
+        [
+          0,
+          32,
+          29
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.7294332723948812,
+          "recall": 0.6244131455399061,
+          "f1": 0.6728499156829679,
+          "support": 639,
+          "recall_wilson_95_interval": [
+            0.5862264811270091,
+            0.6611128866413497
+          ]
+        },
+        "CONTROL": {
+          "precision": 0.6512820512820513,
+          "recall": 0.7673716012084593,
+          "f1": 0.7045769764216367,
+          "support": 662,
+          "recall_wilson_95_interval": [
+            0.733699986276319,
+            0.7979581063678182
+          ]
+        },
+        "PD": {
+          "precision": 0.8285714285714286,
+          "recall": 0.47540983606557374,
+          "f1": 0.6041666666666667,
+          "support": 61,
+          "recall_wilson_95_interval": [
+            0.3553048742284526,
+            0.5984284307501431
+          ]
+        }
+      }
+    }
+  },
+  "limitations": [
+    "No patient IDs; patient independence cannot be established.",
+    "Exact duplicate groups excluded across splits; near duplicates and acquisition confounds can remain.",
+    "PD may differ in acquisition modality from AD/CONTROL.",
+    "Old checkpoint training provenance is unknown; old model may have seen some test images.",
+    "Dataset license metadata says Other (specified in description); redistribution rights not established.",
+    "Softmax scores are uncalibrated model outputs; saliency maps do not establish a clinical explanation."
+  ],
+  "evaluation_file": "evaluation.json",
+  "research_only": true
+}

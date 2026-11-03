@@ -1,0 +1,29 @@
+{
+  "seed": 42,
+  "quantum_seed": 43,
+  "image_size": 224,
+  "batch_size": 16,
+  "preprocessing_version": "resize224-rgb-totensor-v1",
+  "cnn": {
+    "original_epochs": 10,
+    "max_epochs": 20,
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "weight_decay": 0.0001
+  },
+  "quantum": {
+    "original_epochs": 5,
+    "max_epochs": 30,
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "weight_decay": 0
+  },
+  "continuation_rule": "Only continue beyond original10/5 budgets if best validation accuracy or macroF1 is below .85; stop on both>=.85, eight stale epochs, or fixed max budget.",
+  "selection": "Highest validation macroF1; accuracy breaks exact ties. Never use test predictions for checkpoint or budget selection.",
+  "scheduler": "ReduceLROnPlateau validation loss, factor .5, patience3",
+  "loss": "Unweighted cross entropy, matching original",
+  "backbone": "EfficientNetB0 ImageNet1K_V1 parameters frozen; model.train() adapts BatchNorm buffers and enables stochastic depth, matching original execution.",
+  "quantum_architecture": "Original1280->4 tanh encoder, fourXAngleEmbedding qubits, fourBasicEntanglerLayers, PauliZreadout,4->64ReLU->3head.",
+  "determinism": "Fixed Python/NumPy/PyTorch seeds and loader generator. MPS kernels may be nondeterministic across runs/hardware; no bitwise reproducibility claim.",
+  "test_policy": "Train/validation stage never predicts the locked test set. Separate evaluate stage runs once after selection; originals are diagnostic baselines with possible training overlap."
+}

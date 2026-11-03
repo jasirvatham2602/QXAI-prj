@@ -1,0 +1,174 @@
+{
+  "purpose": "Validation-only deployment compatibility cases. Captured after checkpoint selection; never used to choose weights.",
+  "torch_version": "2.5.1",
+  "device": "cpu",
+  "uses_test_images": false,
+  "classes": [
+    "AD",
+    "CONTROL",
+    "PD"
+  ],
+  "checkpoint_sha256": {
+    "xai_model.pth": "995731b04efbec11d3ef765798aeb78d500e750d6ef50658e918ea25483e782c",
+    "qxai_model.pth": "f9ac2e42ce2df508e70b1cc5ec52bf5e8ebbc8db529812112362776278bd5448"
+  },
+  "cases": [
+    {
+      "source_path": "3_cls_2/train/AD/AD_754.png",
+      "source_label": "AD",
+      "local_path": "training/data/v3-golden/01_AD.png",
+      "image_sha256": "b11e65225015147eb8f574ab21852cea93bb595da10a83957216f28a996d9f29",
+      "classical_logits": [
+        4.0856451988220215,
+        -1.051388144493103,
+        -6.54050874710083
+      ],
+      "quantum_logits": [
+        3.1223244667053223,
+        -0.021941915154457092,
+        -3.5268263816833496
+      ],
+      "classical_probabilities": [
+        0.9941351413726807,
+        0.005840636324137449,
+        2.4130449673975818e-05
+      ],
+      "quantum_probabilities": [
+        0.9574933648109436,
+        0.041266556829214096,
+        0.0012400700943544507
+      ]
+    },
+    {
+      "source_path": "3_cls_2/train/AD/AD_395.png",
+      "source_label": "AD",
+      "local_path": "training/data/v3-golden/02_AD.png",
+      "image_sha256": "7cc9e2e69b7e774a3d82aa61deb0b0064841a6be9ff27a7aed723e5466d2ae1b",
+      "classical_logits": [
+        5.158300399780273,
+        -0.6318336129188538,
+        -9.256651878356934
+      ],
+      "quantum_logits": [
+        3.1425530910491943,
+        -0.02281259000301361,
+        -3.5539538860321045
+      ],
+      "classical_probabilities": [
+        0.9969511032104492,
+        0.0030482502188533545,
+        5.474439035424439e-07
+      ],
+      "quantum_probabilities": [
+        0.9583740830421448,
+        0.040442146360874176,
+        0.00118380191270262
+      ]
+    },
+    {
+      "source_path": "3_cls_2/train/CONTROL/CONTROLAD_622.png",
+      "source_label": "CONTROL",
+      "local_path": "training/data/v3-golden/03_CONTROL.png",
+      "image_sha256": "8aea6aed9099c4b9e9e50c1b5a4ebf06c592448195efd2d0dfd7fb29d834561c",
+      "classical_logits": [
+        1.4350658655166626,
+        2.419961929321289,
+        -7.079542636871338
+      ],
+      "quantum_logits": [
+        1.5383896827697754,
+        1.1484769582748413,
+        -3.0879454612731934
+      ],
+      "classical_probabilities": [
+        0.2719065546989441,
+        0.7280389070510864,
+        5.452207551570609e-05
+      ],
+      "quantum_probabilities": [
+        0.5928010940551758,
+        0.4013950824737549,
+        0.005803863052278757
+      ]
+    },
+    {
+      "source_path": "3_cls_2/train/CONTROL/CONTROLAD_67.png",
+      "source_label": "CONTROL",
+      "local_path": "training/data/v3-golden/04_CONTROL.png",
+      "image_sha256": "8e8905eaa8dd5cdaaa760864176e81a5317ab281c6abccd5812a2f87939a9bab",
+      "classical_logits": [
+        -1.4567983150482178,
+        2.634187698364258,
+        -3.4040145874023438
+      ],
+      "quantum_logits": [
+        -1.1365412473678589,
+        2.951918601989746,
+        -2.235051155090332
+      ],
+      "classical_probabilities": [
+        0.01640917733311653,
+        0.9812497496604919,
+        0.002341108862310648
+      ],
+      "quantum_probabilities": [
+        0.016398461535573006,
+        0.9781348705291748,
+        0.00546671450138092
+      ]
+    },
+    {
+      "source_path": "3_cls_2/train/PD/PD_47.png",
+      "source_label": "PD",
+      "local_path": "training/data/v3-golden/05_PD.png",
+      "image_sha256": "3bea544ee5de5e9d464a0df528c7730eeae1e9ed01bdc1d360610d1c1829006e",
+      "classical_logits": [
+        -2.033237934112549,
+        -3.867133617401123,
+        4.514965057373047
+      ],
+      "quantum_logits": [
+        -2.395419120788574,
+        -1.347350835800171,
+        2.549407482147217
+      ],
+      "classical_probabilities": [
+        0.001430311007425189,
+        0.0002285491063958034,
+        0.9983410835266113
+      ],
+      "quantum_probabilities": [
+        0.006930072326213121,
+        0.01976551115512848,
+        0.9733043909072876
+      ]
+    },
+    {
+      "source_path": "3_cls_2/train/PD/PD_560 10.23.51\u202fPM.png",
+      "source_label": "PD",
+      "local_path": "training/data/v3-golden/06_PD.png",
+      "image_sha256": "f0171ad67a07b009b686811a36cc589b55b13556d3731c3131e89237a30ab334",
+      "classical_logits": [
+        -4.055713653564453,
+        -3.3573405742645264,
+        5.908992290496826
+      ],
+      "quantum_logits": [
+        -3.129481554031372,
+        -1.2220510244369507,
+        3.033048152923584
+      ],
+      "classical_probabilities": [
+        4.702420483226888e-05,
+        9.45412612054497e-05,
+        0.9998583793640137
+      ],
+      "quantum_probabilities": [
+        0.002073126845061779,
+        0.013964085839688778,
+        0.9839627146720886
+      ]
+    }
+  ],
+  "probability_atol": 0.0001
+}

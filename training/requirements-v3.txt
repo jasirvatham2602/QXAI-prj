@@ -1,0 +1,9 @@
+# Separate Python 3.9 training environment. The original app runtime is unchanged.
+torch==2.5.1
+torchvision==0.20.1
+PennyLane==0.38.0
+autoray==0.7.0
+numpy==1.24.3
+Pillow==11.3.0
+scipy==1.13.1
+matplotlib==3.9.4

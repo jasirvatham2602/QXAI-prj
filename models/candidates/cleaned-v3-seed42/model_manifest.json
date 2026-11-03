@@ -1,0 +1,127 @@
+{
+  "model_version": "cleaned-v3-seed42",
+  "preprocessing_version": "resize224-rgb-totensor-v1",
+  "class_names": [
+    "AD",
+    "CONTROL",
+    "PD"
+  ],
+  "image_size": 224,
+  "mean": null,
+  "std": null,
+  "checkpoints": {
+    "classical": {
+      "file": "xai_model.pth",
+      "sha256": "995731b04efbec11d3ef765798aeb78d500e750d6ef50658e918ea25483e782c"
+    },
+    "quantum": {
+      "file": "qxai_model.pth",
+      "sha256": "f9ac2e42ce2df508e70b1cc5ec52bf5e8ebbc8db529812112362776278bd5448"
+    }
+  },
+  "test_name": "cleaned-v3-version12-grouped-random-image-holdout-seed42",
+  "test_protocol": "No supplied test split. Stratified 70/10/20 split of unique input-hash groups, NumPy RandomState(42), original class/path order. Duplicate copies are not reweighted.",
+  "dataset_url": "https://www.kaggle.com/datasets/jasirvatham2602/classifying-ad-and-pd-v3",
+  "dataset_version": 12,
+  "archive_sha256": "ffe22a860b3592d1a59bd0ffadcb2c38f6a026345b16a28ea0204d0729e036fb",
+  "seed": 42,
+  "held_out_metrics": {
+    "classical": {
+      "accuracy": 0.8722358722358723,
+      "balanced_accuracy": 0.8954301075268818,
+      "macro_f1": 0.8987405652097595,
+      "confusion_matrix": [
+        [
+          185,
+          15,
+          0
+        ],
+        [
+          37,
+          118,
+          0
+        ],
+        [
+          0,
+          0,
+          52
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.8333333333333334,
+          "recall": 0.925,
+          "f1": 0.8767772511848342,
+          "support": 200
+        },
+        "CONTROL": {
+          "precision": 0.8872180451127819,
+          "recall": 0.7612903225806451,
+          "f1": 0.8194444444444444,
+          "support": 155
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 52
+        }
+      }
+    },
+    "quantum": {
+      "accuracy": 0.8624078624078624,
+      "balanced_accuracy": 0.8906989247311827,
+      "macro_f1": 0.892249322493225,
+      "confusion_matrix": [
+        [
+          177,
+          23,
+          0
+        ],
+        [
+          33,
+          122,
+          0
+        ],
+        [
+          0,
+          0,
+          52
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.8428571428571429,
+          "recall": 0.885,
+          "f1": 0.8634146341463415,
+          "support": 200
+        },
+        "CONTROL": {
+          "precision": 0.8413793103448276,
+          "recall": 0.7870967741935484,
+          "f1": 0.8133333333333334,
+          "support": 155
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 52
+        }
+      },
+      "loss": 0.33091169595718384
+    }
+  },
+  "target_80_each_model_met": true,
+  "backbone_training": "EfficientNetB0 ImageNet1K_V1 parameters frozen; model.train() adapts BatchNorm buffers and enables stochastic depth, matching original execution.",
+  "research_only": true,
+  "limitations": [
+    "Random image-level split; no patient IDs; patient-independent testing is not established.",
+    "New dataset/holdout is not directly comparable to v1 supplied Kaggle test results.",
+    "Previous project checkpoints used overlapping source images. Fresh v3 candidates exclude locked test images; old-checkpoint baseline may include training images.",
+    "Softmax scores are uncalibrated. No clinical validation or quantum advantage established.",
+    "Dataset license metadata: Unknown. Raw archives/images/caches excluded from release packaging.",
+    "MPS kernels are not guaranteed bitwise deterministic across platforms."
+  ],
+  "evaluation_file": "evaluation.json"
+}

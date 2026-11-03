@@ -1,0 +1,26 @@
+{
+  "training_date": "2026-11-03",
+  "training_source_url": "https://github.com/jasirvatham2602/QXAI-prj",
+  "training_source_commit": "275564472359ff282c95a4de450e38fc729d7c57",
+  "original_main_py_sha256": "c255a90183f58e2b8d9a502662cb320619c41a326270546437203a22e9776ba2",
+  "kaggle": {
+    "title": "Alzheimer Parkinson Diseases 3 Class",
+    "ref": "farjanakabirsamanta/alzheimer-diseases-3-class",
+    "currentVersionNumber": 1,
+    "lastUpdated": "2022-10-24T14:32:30.533Z",
+    "licenseName": "Other (specified in description)"
+  },
+  "upstream": {
+    "title": "alzheimer_parkinson_disease",
+    "ref": "gokulramasamy/alzheimer-parkinson-disease",
+    "currentVersionNumber": 1,
+    "lastUpdated": "2022-04-04T12:04:38.733Z",
+    "licenseName": "Unknown"
+  },
+  "metadata_urls": [
+    "https://www.kaggle.com/api/v1/datasets/view/farjanakabirsamanta/alzheimer-diseases-3-class",
+    "https://www.kaggle.com/api/v1/datasets/view/gokulramasamy/alzheimer-parkinson-disease"
+  ],
+  "official_backbone_url": "https://download.pytorch.org/models/efficientnet_b0_rwightman-7f5810bc.pth",
+  "official_backbone_sha256": "7f5810bc96def8f7552d5b7e68d53c4786f81167d28291b21c0d90e1fca14934"
+}

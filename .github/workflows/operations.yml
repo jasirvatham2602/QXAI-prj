@@ -1,0 +1,20 @@
+name: Operations checks
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 10 * * *'
+permissions:
+  contents: read
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/healthcheck.py "$QXAI_API_URL" --wait-seconds 120
+        env:
+          QXAI_API_URL: ${{ vars.QXAI_API_URL || 'https://jasirvatham2602-qxai-backend-hugging-face.hf.space' }}
+# Retention policy: keep records and scans until the owner explicitly deletes them.
+# No scheduled deletion job or server secret is configured in this workflow.

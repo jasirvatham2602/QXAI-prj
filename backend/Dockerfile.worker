@@ -1,0 +1,9 @@
+FROM python:3.10-slim
+RUN useradd -m -u 1000 app
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY --chown=app inference.py model_bundle.py settings.py storage.py worker.py run_inference.py retention.py xai_model.pth qxai_model.pth ./
+USER app
+ENV MPLBACKEND=Agg
+CMD ["python", "worker.py"]

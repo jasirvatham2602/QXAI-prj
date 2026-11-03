@@ -1,0 +1,189 @@
+{
+  "classical": {
+    "selected_epoch": 9,
+    "epochs_run": 10,
+    "validation": {
+      "accuracy": 0.8805970149253731,
+      "balanced_accuracy": 0.9031578947368422,
+      "macro_f1": 0.905982905982906,
+      "confusion_matrix": [
+        [
+          92,
+          8,
+          0
+        ],
+        [
+          16,
+          60,
+          0
+        ],
+        [
+          0,
+          0,
+          25
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.8518518518518519,
+          "recall": 0.92,
+          "f1": 0.8846153846153846,
+          "support": 100
+        },
+        "CONTROL": {
+          "precision": 0.8823529411764706,
+          "recall": 0.7894736842105263,
+          "f1": 0.8333333333333333,
+          "support": 76
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 25
+        }
+      },
+      "loss": 0.32967908273159124
+    },
+    "original_budget_validation": {
+      "accuracy": 0.8805970149253731,
+      "balanced_accuracy": 0.9031578947368422,
+      "macro_f1": 0.905982905982906,
+      "confusion_matrix": [
+        [
+          92,
+          8,
+          0
+        ],
+        [
+          16,
+          60,
+          0
+        ],
+        [
+          0,
+          0,
+          25
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.8518518518518519,
+          "recall": 0.92,
+          "f1": 0.8846153846153846,
+          "support": 100
+        },
+        "CONTROL": {
+          "precision": 0.8823529411764706,
+          "recall": 0.7894736842105263,
+          "f1": 0.8333333333333333,
+          "support": 76
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 25
+        }
+      },
+      "loss": 0.32967908273159124
+    }
+  },
+  "quantum": {
+    "selected_epoch": 5,
+    "epochs_run": 5,
+    "validation": {
+      "accuracy": 0.8905472636815921,
+      "balanced_accuracy": 0.9129824561403509,
+      "macro_f1": 0.9145027380321498,
+      "confusion_matrix": [
+        [
+          91,
+          9,
+          0
+        ],
+        [
+          13,
+          63,
+          0
+        ],
+        [
+          0,
+          0,
+          25
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.875,
+          "recall": 0.91,
+          "f1": 0.892156862745098,
+          "support": 100
+        },
+        "CONTROL": {
+          "precision": 0.875,
+          "recall": 0.8289473684210527,
+          "f1": 0.8513513513513513,
+          "support": 76
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 25
+        }
+      },
+      "loss": 0.32219430804252625
+    },
+    "original_budget_validation": {
+      "accuracy": 0.8905472636815921,
+      "balanced_accuracy": 0.9129824561403509,
+      "macro_f1": 0.9145027380321498,
+      "confusion_matrix": [
+        [
+          91,
+          9,
+          0
+        ],
+        [
+          13,
+          63,
+          0
+        ],
+        [
+          0,
+          0,
+          25
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.875,
+          "recall": 0.91,
+          "f1": 0.892156862745098,
+          "support": 100
+        },
+        "CONTROL": {
+          "precision": 0.875,
+          "recall": 0.8289473684210527,
+          "f1": 0.8513513513513513,
+          "support": 76
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 25
+        }
+      },
+      "loss": 0.32219430804252625
+    }
+  },
+  "runtime_seconds": 395.739546541,
+  "device": "mps",
+  "test_evaluated": false,
+  "checkpoint_sha256": {
+    "xai_model.pth": "995731b04efbec11d3ef765798aeb78d500e750d6ef50658e918ea25483e782c",
+    "qxai_model.pth": "f9ac2e42ce2df508e70b1cc5ec52bf5e8ebbc8db529812112362776278bd5448"
+  }
+}

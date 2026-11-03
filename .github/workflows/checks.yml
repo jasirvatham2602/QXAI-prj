@@ -1,0 +1,25 @@
+name: Checks
+on: [push, pull_request]
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - run: npx eslint src/Home.jsx src/App.jsx src/cloud.js src/AnalysisDetail.jsx src/AdminPanel.jsx src/NavBar.jsx src/Icons.jsx src/About.jsx src/ModelEvaluation.jsx src/pdf-report.mjs src/dashboard-utils.mjs src/preview.js
+  api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r backend/requirements-ops.txt pytest
+      - run: pytest backend/tests -q
+      - run: python -m compileall -q backend -x venv

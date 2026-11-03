@@ -1,0 +1,197 @@
+{
+  "dataset_title": "Cleaned AD/PD v3 \u2014 dataset version 12",
+  "test_name": "cleaned-v3-version12-grouped-random-image-holdout-seed42",
+  "model_version": "cleaned-v3-seed42",
+  "classes": [
+    "AD",
+    "CONTROL",
+    "PD"
+  ],
+  "candidate": {
+    "classical": {
+      "accuracy": 0.8722358722358723,
+      "balanced_accuracy": 0.8954301075268818,
+      "macro_f1": 0.8987405652097595,
+      "confusion_matrix": [
+        [
+          185,
+          15,
+          0
+        ],
+        [
+          37,
+          118,
+          0
+        ],
+        [
+          0,
+          0,
+          52
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.8333333333333334,
+          "recall": 0.925,
+          "f1": 0.8767772511848342,
+          "support": 200
+        },
+        "CONTROL": {
+          "precision": 0.8872180451127819,
+          "recall": 0.7612903225806451,
+          "f1": 0.8194444444444444,
+          "support": 155
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 52
+        }
+      }
+    },
+    "quantum": {
+      "accuracy": 0.8624078624078624,
+      "balanced_accuracy": 0.8906989247311827,
+      "macro_f1": 0.892249322493225,
+      "confusion_matrix": [
+        [
+          177,
+          23,
+          0
+        ],
+        [
+          33,
+          122,
+          0
+        ],
+        [
+          0,
+          0,
+          52
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.8428571428571429,
+          "recall": 0.885,
+          "f1": 0.8634146341463415,
+          "support": 200
+        },
+        "CONTROL": {
+          "precision": 0.8413793103448276,
+          "recall": 0.7870967741935484,
+          "f1": 0.8133333333333334,
+          "support": 155
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 52
+        }
+      },
+      "loss": 0.33091169595718384
+    }
+  },
+  "original": {
+    "classical": {
+      "accuracy": 0.8992628992628993,
+      "balanced_accuracy": 0.9161827956989247,
+      "macro_f1": 0.9200720477316221,
+      "confusion_matrix": [
+        [
+          191,
+          9,
+          0
+        ],
+        [
+          32,
+          123,
+          0
+        ],
+        [
+          0,
+          0,
+          52
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.8565022421524664,
+          "recall": 0.955,
+          "f1": 0.9030732860520094,
+          "support": 200
+        },
+        "CONTROL": {
+          "precision": 0.9318181818181818,
+          "recall": 0.7935483870967742,
+          "f1": 0.8571428571428571,
+          "support": 155
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 52
+        }
+      }
+    },
+    "quantum": {
+      "accuracy": 0.9041769041769042,
+      "balanced_accuracy": 0.9214516129032257,
+      "macro_f1": 0.9244563393653676,
+      "confusion_matrix": [
+        [
+          189,
+          11,
+          0
+        ],
+        [
+          28,
+          127,
+          0
+        ],
+        [
+          0,
+          0,
+          52
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.8709677419354839,
+          "recall": 0.945,
+          "f1": 0.9064748201438848,
+          "support": 200
+        },
+        "CONTROL": {
+          "precision": 0.9202898550724637,
+          "recall": 0.8193548387096774,
+          "f1": 0.8668941979522183,
+          "support": 155
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 52
+        }
+      },
+      "loss": 0.2577657401561737
+    }
+  },
+  "test_images": 407,
+  "preprocessing_version": "resize224-rgb-totensor-v1",
+  "seed": 42,
+  "dataset_url": "https://www.kaggle.com/datasets/jasirvatham2602/classifying-ad-and-pd-v3",
+  "limitations": [
+    "Random image-level split; no patient IDs; patient-independent testing is not established.",
+    "New dataset/holdout is not directly comparable to v1 supplied Kaggle test results.",
+    "Previous project checkpoints used overlapping source images. Fresh v3 candidates exclude locked test images; old-checkpoint baseline may include training images.",
+    "Softmax scores are uncalibrated. No clinical validation or quantum advantage established.",
+    "Dataset license metadata: Unknown. Raw archives/images/caches excluded from release packaging.",
+    "MPS kernels are not guaranteed bitwise deterministic across platforms."
+  ],
+  "evaluation_note": "Locked 70/10/20 random image split; exact duplicate groups excluded across splits. Fresh candidate training and selection exclude this test set. Prior project models have overlapping source data, so saved-model metrics are diagnostic baselines. Unknown patient IDs; patient independence is not established."
+}

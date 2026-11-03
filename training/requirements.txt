@@ -1,0 +1,9 @@
+# Python 3.9 environment used for the recorded CPU training run.
+torch==1.13.0
+torchvision==0.14.0
+PennyLane==0.38.0
+autoray==0.7.0
+numpy==1.24.3
+Pillow==11.3.0
+scipy==1.13.1
+matplotlib==3.9.4

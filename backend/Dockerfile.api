@@ -1,0 +1,9 @@
+FROM python:3.11-slim
+RUN useradd -m -u 1000 app
+WORKDIR /app
+COPY requirements-api.txt .
+RUN pip install --no-cache-dir -r requirements-api.txt
+COPY --chown=app service.py main.py settings.py storage.py admin_access.py ./
+ENV QXAI_ENV=production
+USER app
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860"]

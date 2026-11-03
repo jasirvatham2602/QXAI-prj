@@ -1,93 +1,85 @@
-# QXAI-prj
-Investigates whether a Quantum Explainable AI (QXAI) model that classifies Alzheimer’s disease (AD), Parkinson’s disease (PD), and Control performs better than its XAI classical counterpart. Implements a VQC–CNN (Variational Quantum Circuit–Convolutional Neural Network) and compares XAI and QXAI Saliency Maps (XAI:89.46% and  QXAI:86.52% test accuracy).
-# Motivation 
-In december 4th, 2025, my research on the use of Transfer Learning, Ensemble Learning, and Explainable AI to produce precise and interpretable diagnoses, building trust between neurologists and AI, was published in the American Journal of Student Research. The proposed Ensemble Learning model received an accuracy of 97.04% using classical neural networks. After learning Quantum Computing from CSI 4900 at Oakland University, I wanted to learn about how Quantum Computing is integrated with classical neural networks to produce a Quantum-classical hybrid. Therefore, I explored how to design a Quantum AI architecture to classify AD, PD, and Control. Furthermore, I produced Quantum Saliency Maps to allow side-by-side comparisons between the XAI and QXAI models. 
-# Model Architectures 
-&emsp;  The XAI model's architecture uses a pretrained EfficientNetB0 backbone with frozen weights to obtain a 1280-length vector; this 1280-length feature vector is then fed into a fully connected hidden layer of 256 neurons with a ReLU activation function. Finally, there is the output layer with 3 neurons with logits to determine if the model predicts Alzheimer's disease, Parkinson's disease, or Control. 
+# QXAI — Classical and Quantum Explainable AI
 
- 
-  <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/VQC.png" width="500" />  
-&emsp; &emsp;  &emsp; The VQC diagram was made with Qiskit
+An MRI research workspace comparing a classical EfficientNet classifier with a simulated quantum–classical hybrid. Upload a public or synthetic research image, compare predictions and saliency maps, revisit private analysis histories, and export the evidence as a PDF.
 
+**[Open the research demo](https://qxai-fullstack-prj.netlify.app/)** · [Training and reproduction](training/README-v3.md) · [Deployment guide](DEPLOYMENT.md)
 
+This repository contains the frontend, Python API, background worker, database migrations, model checkpoints, training code, and evaluation results. Research use only; the models are not clinically validated and scores are not calibrated clinical confidence.
 
+## Current model results
 
-&emsp;  The QXAI model employs a quantum-classical hybrid architecture. It starts with a classical neural network, then goes into a variational quantum circuit (VQC), and finally back to a simple neural network to obtain 3 output neurons. The QXAI architecture begins with the EfficientNetB0 backbone to obtain a 1280-length feature vector. Simulating 1280 qubits is infeasible due to limitations of quantum technology. Therefore, this feature is passed into a fully connected hidden layer with 4 neurons with a tanh activation function. Now we have 4 numbers between -1 and 1 to represent the features of the MRI scan. Quantum encoding then converts these numbers to a qubit state on the Bloch sphere; specifically, each qubit $| 0 \rangle$ state is rotated with the Ry gate by the $x_i$. A quantum layer consists of rotations of each of the 4 qubits by a certain amount  $\theta_1$, $\theta_2$, $\theta_3$, and $\theta_4$, which are trainable weights. Then a CNOT gate is applied to neighboring qubits to create entanglement, where the states of the qubits now depend on each other. This quantum layer is repeated 3 more times with 12 more trainable weights. The last part of the Quantum circuit involves measuring the expectation of the Pauli-Z observable, $\langle Z \rangle$, applied to each qubit. This is then fed into a linear fully connected hidden layer with 64 neurons  with a ReLU activation function, and finally, 3 output neurons.
+Both models use the cleaned [AD/PD v3 dataset](https://www.kaggle.com/datasets/jasirvatham2602/classifying-ad-and-pd-v3), official dataset version 12. The 2,021 intended three-class images were split before training: 1,413 training, 201 validation, and 407 test images. The separate binary copies were excluded. Exact duplicate groups are disjoint across partitions; no subject identifiers were supplied, so patient independence is not established.
 
-$$ | \psi \rangle = \alpha |0\rangle +\beta |1\rangle = \begin{bmatrix} \alpha \\
-\beta \end{bmatrix}  $$ 
-$$  P(0) = |\alpha|^2 $$ 
-$$ P(1) = |\beta|^2 $$
-$$ R_y(\theta) = \begin{bmatrix} cos(\frac{\theta}{2}) & -sin(\frac{\theta}{2}) \\
-sin(\frac{\theta}{2}) & cos(\frac{\theta}{2})
-\end{bmatrix}$$ 
-$$ R_y(\theta)|0\rangle = \begin{bmatrix} cos(\frac{\theta}{2}) & -sin(\frac{\theta}{2}) \\
-sin(\frac{\theta}{2}) & cos(\frac{\theta}{2})
-\end{bmatrix} 
-\begin{bmatrix} 1 \\
-0 \end{bmatrix} = \begin{bmatrix} cos(\frac{\theta}{2}) \\
-sin(\frac{\theta}{2})
-\\end{bmatrix}
-$$
-$$ Z = \begin{bmatrix} 1 & 0 \\
-0 & -1 \end{bmatrix} $$
+| Model | Test accuracy | Correct / total | Macro F1 |
+|---|---:|---:|---:|
+| Classical XAI | **87.22%** | 355 / 407 | 0.8987 |
+| Quantum XAI | **86.24%** | 351 / 407 | 0.8922 |
 
-$$ \langle \psi | = \begin{bmatrix} \bar{\alpha} & \bar {\beta} \\ \end{bmatrix} $$
-$$ \langle \psi | Z = \begin{bmatrix} \bar{\alpha} & \bar{\beta} \\ \end{bmatrix} \begin{bmatrix} 1 & 0 \\
-0 & -1 \end{bmatrix}  =  \begin{bmatrix} \bar{\alpha} & 
--\bar{\beta}
-\end{bmatrix}
-$$
-$$ \langle Z \rangle = \langle \psi | Z | \psi \rangle =  \begin{bmatrix} \bar{\alpha} & -\bar{\beta}
-\end{bmatrix}
-\begin{bmatrix} \alpha \\
-\beta 
-\end{bmatrix} = \alpha * \bar{\alpha} - \beta * \bar{\beta} = |\alpha|^2 - |\beta|^2 = P(0) - P(1) $$
-# Explainable AI (Quantum and Classical Saliency Maps)
+Original architectures and actual raw-input preprocessing were preserved. EfficientNet-B0 parameters remain frozen; BatchNorm statistics adapt during CNN training. XAI trained for 10 epochs, selecting epoch 9 by validation; QXAI trained for 5 epochs, selecting epoch 5. The locked test set was evaluated after model selection. The quantum circuit is simulated on a classical computer; this does not demonstrate quantum advantage.
 
-<img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/sidebysideSaliencyMap.png" width="100%" /> 
+<p>
+  <img src="models/candidates/cleaned-v3-seed42/cm_XAI.png" width="49%" alt="Classical XAI test confusion matrix" />
+  <img src="models/candidates/cleaned-v3-seed42/cm_QXAI.png" width="49%" alt="Quantum XAI test confusion matrix" />
+</p>
 
-Above is a Classical and Quantum Saliency Map produced by the models side by side. Both of the models produced the correct diagnosis of PD, but highlighted slightly different regions. Given that both architectures use the same 1280-length feature vector, the highlighted features will be similar, which is the case. However, the Quantum Saliency Map appears to be dimmer, focusing mainly on a certain region on the bottom half of the MRI scan, while the Classical Saliency Map produced was brighter and highlighted multiple regions. 
+Rows are predicted labels; columns are actual labels, matching the original research figures.
 
-<img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/sidebysideSaliencyMap2.png" width="100%" /> 
+### Paired statistical comparison
 
-Above is another side-by-side Saliency Maps of the QXAI and XAI models. However, the models disagreed on their diagnoses; the XAI model correctly predicted CONTROL, while the QXAI model predicted AD. The XAI model highlighted multiple regions confidently; specifically, it highlighted the middle region of the MRI scan in bright yellow. However, the QXAI model didn't really highlight much, possibly indicating that it may not have been confident in its diagnosis. 
+| QXAI / XAI | XAI correct | XAI incorrect |
+|---|---:|---:|
+| QXAI correct | 341 | 10 |
+| QXAI incorrect | 14 | 42 |
 
-# Results 
-<img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/XAI_training.png" width="100%" /> 
-<img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/QXAI_training.png" width="100%" /> 
+Exact two-sided McNemar **p = 0.5413**. The continuity-corrected test gives chi-square **0.375**, p **0.5403**. The observed 0.98 percentage-point accuracy difference is not statistically significant at alpha 0.05 or 0.10. Non-significance does not establish equivalence. Unknown subject clustering limits the independence assumption.
 
-The QXAI model was trained for 5 epochs, while the XAI model was trained for 10 epochs; when the models were trained for higher epochs, overfitting occurred. The QXAI model needed less time to train since it has fewer trainable parameters in its architecture, with only 16 trainable parameters in its 4 quantum layers and a final hidden layer of 64 neurons, fewer than its XAI counterpart. Both QXAI and XAI's train loss and validation curves generally decreased during training. A increasing validation curve and a decreasing training loss curve indicate that the model is likely overfitting, which is when a model studies the training data too well, performing worse on unseen data. Therefore, the models are not overfit. Both QXAI and XAI training and validation accuracy graphs show an upward trend.  
-<div>
-  <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/cm_XAI.png" width="500" /> 
-  <img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/cm_QXAI.png" width="500" /> 
-</div>
-Above is the Confusion Matrices of QXAI and XAI models for the test dataset. The QXAI model received an accuracy of 86.52%, while the XAI model received an accuracy of 89.46%. Both models performed well at identifying PD. Both models struggle with the classification of AD and CONTROL. The QXAI correctly identified 191 AD, while XAI correctly identified 179 AD; the XAI model correctly identified 134 CONTROL cases, while the QXAI model correctly classified 110 CONTROL cases. Overall, both models performed well, with the XAI model performing better.   
+<img src="models/candidates/cleaned-v3-seed42/Contingency_Matrix.png" width="500" alt="Paired XAI and QXAI correctness table" />
 
-# Statistical Comparison (QXAI vs. XAI with McNemar's Test)
-<img src="https://github.com/jasirvatham2602/QXAI-prj/blob/main/Contingency_Matrix.png" width="500" /> 
+See the [model card](models/candidates/cleaned-v3-seed42/MODEL_CARD.md), [statistical report](models/candidates/cleaned-v3-seed42/STATISTICAL_COMPARISON.md), and [paired predictions](models/candidates/cleaned-v3-seed42/paired_test_predictions.json). The earlier full-dataset experiment and original reported results use different exact test sets and remain documented separately; their percentages are not a paired improvement comparison.
 
-&emsp; The chi-squared value can be calculated using the following formula.
+## Research workspace
 
-$$\chi^2 = \frac{(|b-c|-1)^2}{b+c} = \frac{11^2}{40} = 3.025$$
+- Email sign-in, owner-only histories, and private input/saliency image storage.
+- Classical and quantum model comparisons, probability bars, filename search, date/status filters, and original filenames in reports.
+- PDF, self-contained HTML, and JSON exports.
+- Restricted administrator review with uploader details and model-processing metadata.
+- Background processing with bounded retries, timeouts, abandoned-job recovery, atomic claims, and model self-tests.
+- Health checks, CI, and encrypted local application backups with verified offline recovery.
+- Records remain until their owner deletes them; automatic cleanup is disabled.
 
-$$df = 1$$
+| Component | Implementation / hosting |
+|---|---|
+| Frontend | React + Vite on Netlify |
+| API and worker | Python + FastAPI in the existing Hugging Face CPU Basic Docker Space |
+| Authentication, database, private images | Supabase Auth, PostgreSQL RLS, private Storage |
+| Models | PyTorch + PennyLane; four simulated qubits and four entangler layers |
 
-$$\alpha = 0.10$$
+Free hosting may sleep or cold-start. The production admin panel uses a verified administrator account. The optional local development shared-password login is disabled in production.
 
-$$p-value = P(\chi^2 > 3.025) = 0.082 < 0.10$$
+## Run the app locally
 
-The QXAI model received an accuracy of 86.52% while the XAI model received an accuracy of 89.46%, providing some evidence that the XAI model is better than the QXAI model. McNemar's test with correction was employed to determine whether there was convincing evidence of one model performing better than the other. Because a p-value of 0.082 < 0.10, there is convincing evidence that one model is better than the other, and therefore, there is convincing evidence that the QXAI model performed worse than the XAI model. 
-# How to Run
-1. Clone the repository with "git clone https://github.com/jasirvatham2602/QXAI-prj" on the terminal, or simply download the contents of the repository as a zip file and extract it on Windows.
-2. Open the QXAI-prj folder on the terminal/command prompt with "cd QXAI-prj"
-3. The data has been compressed into a zip folder for convenience. Simply unzip it with "unzip data.zip" on the terminal, or right-click on the data file and unzip it on Windows
-4. Now that the data file has been unzipped, we must install the needed dependencies with "pip install -r requirements.txt" or "pip3 install -r requirements.txt", if pip doesn't work.
-5. Now run the code with "python main.py" or "python3 main.py" (Make sure Python is already installed on the computer. If it is not, you can download it at python.org)
-# Limitation and Future work
-Since access to a quantum computer was not available, simulation of qubits for the quantum circuit was done by PennyLane-- a common framework used in Quantum Computing. Access to a Quantum Computer may have increased the performance of the model. 
-In the future, other Quantum Explainable AI techniques can be implemented to further help create trust between Quantum AI models and neurologists. Moreover, the classification of other neurological disorders can be done in the future with QXAI technology to help provide quick and precise diagnoses to patients with other neurological diseases.  
-# Acknowledgements 
-I would like to acknowledge all of the dependencies used in this passion project, such as PennyLane, PyTorch, Qiskit, matplotlib, seaborn, numpy, and more, as seen in the requirements.txt file. Pennylane was used to design the Variational Quantum Circuit of the QXAI architecture, and PyTorch was used for the classical AI parts. Other dependencies, such as numpy, matplotlib, and seaborn, were also used. Additionally, Qiskit was used to make the VQC diagram to help explain the QXAI architecture.
-Furthermore, I would also like to acknowledge the Kaggle dataset, which provided the MRI scans of AD, PD, and CONTROL below. Some MRI scans were removed due to noise.
-https://www.kaggle.com/datasets/farjanakabirsamanta/alzheimer-diseases-3-class 
+```sh
+npm ci
+npm run dev -- --host 127.0.0.1 --port 5174
+```
+
+Copy the example environment files and configure your own project. Frontend VITE settings contain only public values. Server secrets belong only in the backend environment. See [DEPLOYMENT.md](DEPLOYMENT.md) for API/worker startup, schema, and configuration.
+
+```sh
+npm test
+npm run build
+python -m pytest backend/tests -q
+```
+
+Backend tests require `backend/requirements-ops.txt` and pytest. Training uses its separate [documented environment and commands](training/README-v3.md). Download the dataset into ignored `training/data/`; downloaded datasets, feature caches, credentials, uploads, and private backups must not be committed.
+
+## Repository map
+
+- `src/`, `public/`: web application.
+- `backend/`: authenticated API, inference, worker, access controls, and operations.
+- `supabase/migrations/`: versioned database setup.
+- `training/`: reproducible training, protocol audit, verification, and paired comparison.
+- `models/candidates/cleaned-v3-seed42/`: deployed checkpoint bundle and measured results.
+- `docs/original-research/README.md`: preserved original research write-up. The original root `main.py`, figures, and dataset archive remain for historical reproduction.
+
+The original project investigated quantum and classical saliency explanations. See the [protocol audit](training/PROTOCOL_AUDIT.md) for the distinction between its reported 89.46% / 86.52% and the current cleaned-data experiment. The original write-up's claim of differing accuracy used alpha 0.10; the current paired comparison finds no significant difference.

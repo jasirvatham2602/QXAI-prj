@@ -1,0 +1,10 @@
+{
+  "split_manifest_sha256": "d95edd17cbdfae2ebe49a88a6640ccece2bdd762f1ab5bdcb94e51412d5ca8bd",
+  "training_protocol_sha256": "3ac8c51d2e8aa311fa1eb66a381dda787c7e1b56a7c8a8d1970d8d799e2d7331",
+  "training_script_sha256": "39b0860e5b33deb771371b5881d8e36fd47d2bd777f603bdf5578382f15ebb9b",
+  "runtime_notes": [
+    "Initial torch1.13 MPS process exited138 before an epoch completed; no checkpoint or test prediction produced.",
+    "Separate torch2.5.1/torchvision0.20.1 temporary environment passed real MPS forward/backward/optimizer smoke checks; app runtime unchanged."
+  ],
+  "test_evaluated_at_lock": false
+}

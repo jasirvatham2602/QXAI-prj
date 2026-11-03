@@ -1,0 +1,23 @@
+{
+  "test_name": "cleaned-v3-version12-grouped-random-image-holdout-seed42",
+  "n": 407,
+  "table_rows": "QXAI correct, incorrect",
+  "table_columns": "XAI correct, incorrect",
+  "contingency": [
+    [
+      341,
+      10
+    ],
+    [
+      14,
+      42
+    ]
+  ],
+  "discordant_qxai_only_correct": 10,
+  "discordant_xai_only_correct": 14,
+  "exact_two_sided_p": 0.5412561893463135,
+  "continuity_corrected_chi2": 0.375,
+  "continuity_corrected_p": 0.5402913746074198,
+  "accuracy_difference_xai_minus_qxai": 0.00982800982800991,
+  "independence_limitation": "Image-level pairs; subject clustering is unknown. Non-significance does not establish equivalence."
+}

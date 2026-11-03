@@ -1,0 +1,549 @@
+{
+  "model_version": "cleaned-v3-seed42",
+  "dataset_url": "https://www.kaggle.com/datasets/jasirvatham2602/classifying-ad-and-pd-v3",
+  "dataset_version": 12,
+  "archive_sha256": "ffe22a860b3592d1a59bd0ffadcb2c38f6a026345b16a28ea0204d0729e036fb",
+  "test_name": "cleaned-v3-version12-grouped-random-image-holdout-seed42",
+  "test_protocol": "No supplied test split. Stratified 70/10/20 split of unique input-hash groups, NumPy RandomState(42), original class/path order. Duplicate copies are not reweighted.",
+  "seed": 42,
+  "classes": [
+    "AD",
+    "CONTROL",
+    "PD"
+  ],
+  "candidate_test": {
+    "classical": {
+      "accuracy": 0.8722358722358723,
+      "balanced_accuracy": 0.8954301075268818,
+      "macro_f1": 0.8987405652097595,
+      "confusion_matrix": [
+        [
+          185,
+          15,
+          0
+        ],
+        [
+          37,
+          118,
+          0
+        ],
+        [
+          0,
+          0,
+          52
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.8333333333333334,
+          "recall": 0.925,
+          "f1": 0.8767772511848342,
+          "support": 200
+        },
+        "CONTROL": {
+          "precision": 0.8872180451127819,
+          "recall": 0.7612903225806451,
+          "f1": 0.8194444444444444,
+          "support": 155
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 52
+        }
+      }
+    },
+    "quantum": {
+      "accuracy": 0.8624078624078624,
+      "balanced_accuracy": 0.8906989247311827,
+      "macro_f1": 0.892249322493225,
+      "confusion_matrix": [
+        [
+          177,
+          23,
+          0
+        ],
+        [
+          33,
+          122,
+          0
+        ],
+        [
+          0,
+          0,
+          52
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.8428571428571429,
+          "recall": 0.885,
+          "f1": 0.8634146341463415,
+          "support": 200
+        },
+        "CONTROL": {
+          "precision": 0.8413793103448276,
+          "recall": 0.7870967741935484,
+          "f1": 0.8133333333333334,
+          "support": 155
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 52
+        }
+      },
+      "loss": 0.33091169595718384
+    }
+  },
+  "old_checkpoint_test": {
+    "classical": {
+      "accuracy": 0.8992628992628993,
+      "balanced_accuracy": 0.9161827956989247,
+      "macro_f1": 0.9200720477316221,
+      "confusion_matrix": [
+        [
+          191,
+          9,
+          0
+        ],
+        [
+          32,
+          123,
+          0
+        ],
+        [
+          0,
+          0,
+          52
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.8565022421524664,
+          "recall": 0.955,
+          "f1": 0.9030732860520094,
+          "support": 200
+        },
+        "CONTROL": {
+          "precision": 0.9318181818181818,
+          "recall": 0.7935483870967742,
+          "f1": 0.8571428571428571,
+          "support": 155
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 52
+        }
+      }
+    },
+    "quantum": {
+      "accuracy": 0.9041769041769042,
+      "balanced_accuracy": 0.9214516129032257,
+      "macro_f1": 0.9244563393653676,
+      "confusion_matrix": [
+        [
+          189,
+          11,
+          0
+        ],
+        [
+          28,
+          127,
+          0
+        ],
+        [
+          0,
+          0,
+          52
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.8709677419354839,
+          "recall": 0.945,
+          "f1": 0.9064748201438848,
+          "support": 200
+        },
+        "CONTROL": {
+          "precision": 0.9202898550724637,
+          "recall": 0.8193548387096774,
+          "f1": 0.8668941979522183,
+          "support": 155
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 52
+        }
+      },
+      "loss": 0.2577657401561737
+    }
+  },
+  "candidate_validation": {
+    "classical": {
+      "accuracy": 0.8805970149253731,
+      "balanced_accuracy": 0.9031578947368422,
+      "macro_f1": 0.905982905982906,
+      "confusion_matrix": [
+        [
+          92,
+          8,
+          0
+        ],
+        [
+          16,
+          60,
+          0
+        ],
+        [
+          0,
+          0,
+          25
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.8518518518518519,
+          "recall": 0.92,
+          "f1": 0.8846153846153846,
+          "support": 100
+        },
+        "CONTROL": {
+          "precision": 0.8823529411764706,
+          "recall": 0.7894736842105263,
+          "f1": 0.8333333333333333,
+          "support": 76
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 25
+        }
+      },
+      "loss": 0.32967908273159124
+    },
+    "quantum": {
+      "accuracy": 0.8905472636815921,
+      "balanced_accuracy": 0.9129824561403509,
+      "macro_f1": 0.9145027380321498,
+      "confusion_matrix": [
+        [
+          91,
+          9,
+          0
+        ],
+        [
+          13,
+          63,
+          0
+        ],
+        [
+          0,
+          0,
+          25
+        ]
+      ],
+      "per_class": {
+        "AD": {
+          "precision": 0.875,
+          "recall": 0.91,
+          "f1": 0.892156862745098,
+          "support": 100
+        },
+        "CONTROL": {
+          "precision": 0.875,
+          "recall": 0.8289473684210527,
+          "f1": 0.8513513513513513,
+          "support": 76
+        },
+        "PD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 25
+        }
+      },
+      "loss": 0.32219430804252625
+    }
+  },
+  "training": {
+    "classical": {
+      "selected_epoch": 9,
+      "epochs_run": 10,
+      "validation": {
+        "accuracy": 0.8805970149253731,
+        "balanced_accuracy": 0.9031578947368422,
+        "macro_f1": 0.905982905982906,
+        "confusion_matrix": [
+          [
+            92,
+            8,
+            0
+          ],
+          [
+            16,
+            60,
+            0
+          ],
+          [
+            0,
+            0,
+            25
+          ]
+        ],
+        "per_class": {
+          "AD": {
+            "precision": 0.8518518518518519,
+            "recall": 0.92,
+            "f1": 0.8846153846153846,
+            "support": 100
+          },
+          "CONTROL": {
+            "precision": 0.8823529411764706,
+            "recall": 0.7894736842105263,
+            "f1": 0.8333333333333333,
+            "support": 76
+          },
+          "PD": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 25
+          }
+        },
+        "loss": 0.32967908273159124
+      },
+      "original_budget_validation": {
+        "accuracy": 0.8805970149253731,
+        "balanced_accuracy": 0.9031578947368422,
+        "macro_f1": 0.905982905982906,
+        "confusion_matrix": [
+          [
+            92,
+            8,
+            0
+          ],
+          [
+            16,
+            60,
+            0
+          ],
+          [
+            0,
+            0,
+            25
+          ]
+        ],
+        "per_class": {
+          "AD": {
+            "precision": 0.8518518518518519,
+            "recall": 0.92,
+            "f1": 0.8846153846153846,
+            "support": 100
+          },
+          "CONTROL": {
+            "precision": 0.8823529411764706,
+            "recall": 0.7894736842105263,
+            "f1": 0.8333333333333333,
+            "support": 76
+          },
+          "PD": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 25
+          }
+        },
+        "loss": 0.32967908273159124
+      }
+    },
+    "quantum": {
+      "selected_epoch": 5,
+      "epochs_run": 5,
+      "validation": {
+        "accuracy": 0.8905472636815921,
+        "balanced_accuracy": 0.9129824561403509,
+        "macro_f1": 0.9145027380321498,
+        "confusion_matrix": [
+          [
+            91,
+            9,
+            0
+          ],
+          [
+            13,
+            63,
+            0
+          ],
+          [
+            0,
+            0,
+            25
+          ]
+        ],
+        "per_class": {
+          "AD": {
+            "precision": 0.875,
+            "recall": 0.91,
+            "f1": 0.892156862745098,
+            "support": 100
+          },
+          "CONTROL": {
+            "precision": 0.875,
+            "recall": 0.8289473684210527,
+            "f1": 0.8513513513513513,
+            "support": 76
+          },
+          "PD": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 25
+          }
+        },
+        "loss": 0.32219430804252625
+      },
+      "original_budget_validation": {
+        "accuracy": 0.8905472636815921,
+        "balanced_accuracy": 0.9129824561403509,
+        "macro_f1": 0.9145027380321498,
+        "confusion_matrix": [
+          [
+            91,
+            9,
+            0
+          ],
+          [
+            13,
+            63,
+            0
+          ],
+          [
+            0,
+            0,
+            25
+          ]
+        ],
+        "per_class": {
+          "AD": {
+            "precision": 0.875,
+            "recall": 0.91,
+            "f1": 0.892156862745098,
+            "support": 100
+          },
+          "CONTROL": {
+            "precision": 0.875,
+            "recall": 0.8289473684210527,
+            "f1": 0.8513513513513513,
+            "support": 76
+          },
+          "PD": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 25
+          }
+        },
+        "loss": 0.32219430804252625
+      }
+    },
+    "runtime_seconds": 395.739546541,
+    "device": "mps",
+    "test_evaluated": false,
+    "checkpoint_sha256": {
+      "xai_model.pth": "995731b04efbec11d3ef765798aeb78d500e750d6ef50658e918ea25483e782c",
+      "qxai_model.pth": "f9ac2e42ce2df508e70b1cc5ec52bf5e8ebbc8db529812112362776278bd5448"
+    }
+  },
+  "training_protocol": {
+    "seed": 42,
+    "quantum_seed": 43,
+    "image_size": 224,
+    "batch_size": 16,
+    "preprocessing_version": "resize224-rgb-totensor-v1",
+    "cnn": {
+      "original_epochs": 10,
+      "max_epochs": 20,
+      "optimizer": "Adam",
+      "lr": 0.001,
+      "weight_decay": 0.0001
+    },
+    "quantum": {
+      "original_epochs": 5,
+      "max_epochs": 30,
+      "optimizer": "Adam",
+      "lr": 0.001,
+      "weight_decay": 0
+    },
+    "continuation_rule": "Only continue beyond original10/5 budgets if best validation accuracy or macroF1 is below .85; stop on both>=.85, eight stale epochs, or fixed max budget.",
+    "selection": "Highest validation macroF1; accuracy breaks exact ties. Never use test predictions for checkpoint or budget selection.",
+    "scheduler": "ReduceLROnPlateau validation loss, factor .5, patience3",
+    "loss": "Unweighted cross entropy, matching original",
+    "backbone": "EfficientNetB0 ImageNet1K_V1 parameters frozen; model.train() adapts BatchNorm buffers and enables stochastic depth, matching original execution.",
+    "quantum_architecture": "Original1280->4 tanh encoder, fourXAngleEmbedding qubits, fourBasicEntanglerLayers, PauliZreadout,4->64ReLU->3head.",
+    "determinism": "Fixed Python/NumPy/PyTorch seeds and loader generator. MPS kernels may be nondeterministic across runs/hardware; no bitwise reproducibility claim.",
+    "test_policy": "Train/validation stage never predicts the locked test set. Separate evaluate stage runs once after selection; originals are diagnostic baselines with possible training overlap."
+  },
+  "checkpoint_sha256": {
+    "xai_model.pth": "995731b04efbec11d3ef765798aeb78d500e750d6ef50658e918ea25483e782c",
+    "qxai_model.pth": "f9ac2e42ce2df508e70b1cc5ec52bf5e8ebbc8db529812112362776278bd5448"
+  },
+  "baseline_checkpoint_sha256": {
+    "xai_model.pth": "a6ac097011fac41963f3f73702f2093c1e0bf58bd469202f65c5788b62fda0f3",
+    "qxai_model.pth": "17e5315ab94d17526c9f698c4c3bb277fd6ca3e008cc56aa996e3171d26808e1"
+  },
+  "candidate_preprocessing": {
+    "version": "resize224-rgb-totensor-v1",
+    "rgb": true,
+    "resize": [
+      224,
+      224
+    ],
+    "interpolation": "torchvision PIL bilinear",
+    "normalization": false
+  },
+  "test_counts": {
+    "AD": 200,
+    "CONTROL": 155,
+    "PD": 52
+  },
+  "source_overlap": {
+    "original_github_archive_unique_images": 2024,
+    "v3_images_present_in_github_archive": 2021,
+    "v3_images_by_previous_kaggle_v1_partition": {
+      "train": 1711,
+      "validation": 307,
+      "test": 3
+    },
+    "v3_test_images_by_previous_kaggle_v1_partition": {
+      "train": 343,
+      "validation": 64
+    }
+  },
+  "target_80_each_model_met": true,
+  "limitations": [
+    "Random image-level split; no patient IDs; patient-independent testing is not established.",
+    "New dataset/holdout is not directly comparable to v1 supplied Kaggle test results.",
+    "Previous project checkpoints used overlapping source images. Fresh v3 candidates exclude locked test images; old-checkpoint baseline may include training images.",
+    "Softmax scores are uncalibrated. No clinical validation or quantum advantage established.",
+    "Dataset license metadata: Unknown. Raw archives/images/caches excluded from release packaging.",
+    "MPS kernels are not guaranteed bitwise deterministic across platforms."
+  ],
+  "versions": {
+    "torch": "2.5.1",
+    "torchvision": "0.20.1",
+    "PennyLane": "0.38.0",
+    "numpy": "1.24.3",
+    "Pillow": "11.3.0"
+  },
+  "python": "3.9.6",
+  "evaluation_device": "cpu",
+  "evaluation_runtime_seconds": 214.428611917
+}

@@ -1,0 +1,15 @@
+{
+  "original_github_archive_sha256": "e311e6f84ae54ce0478665794029df46d7eee7cd1013c4cb9d1d76f7bc030df3",
+  "original_github_image_counts": {
+    "PD": 254,
+    "AD": 1003,
+    "CONTROL": 767
+  },
+  "unique_model_input_hashes": 2024,
+  "overlap_by_kaggle_partition": {
+    "train": 1713,
+    "validation": 308,
+    "test": 3
+  },
+  "interpretation": "Overlap with a public training-source archive does not prove a checkpoint saw each image, because its exact original train/validation/test membership is not saved. These old-checkpoint results are a diagnostic baseline, not an independent generalization estimate."
+}

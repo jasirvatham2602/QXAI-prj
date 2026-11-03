@@ -1,0 +1,12 @@
+FROM python:3.10-slim
+RUN useradd -m -u 1000 app
+WORKDIR /app
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir numpy==1.24.3 filelock typing_extensions sympy networkx jinja2 requests
+RUN pip install --no-cache-dir --no-deps torch==2.0.1+cpu torchvision==0.15.2+cpu --index-url https://download.pytorch.org/whl/cpu
+COPY requirements-space.txt .
+RUN pip install --no-cache-dir -r requirements-space.txt
+COPY --chown=app . /app
+ENV QXAI_ENV=production MPLBACKEND=Agg MPLCONFIGDIR=/tmp/matplotlib OMP_NUM_THREADS=2 MKL_NUM_THREADS=2
+USER app
+CMD ["python", "start_space.py"]

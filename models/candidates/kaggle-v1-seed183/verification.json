@@ -1,0 +1,10 @@
+{
+  "strict_state_dicts": true,
+  "manifest_hashes": true,
+  "frozen_backbone_and_batchnorm_match": true,
+  "sampled_cache_features_match": true,
+  "max_feature_difference": 6.4373016357421875e-06,
+  "vectorized_circuit_matches_original_loop": true,
+  "all_checkpoint_tensors_finite": true,
+  "validation_uses_no_test_metrics": true
+}

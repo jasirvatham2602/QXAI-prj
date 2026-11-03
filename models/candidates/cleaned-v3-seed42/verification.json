@@ -1,0 +1,14 @@
+{
+  "strict_state_dicts": true,
+  "manifest_hashes": true,
+  "backbone_parameters_equal_imagenet": true,
+  "batchnorm_buffers_adapted": true,
+  "batchnorm_update_counters_match_selected_epoch": true,
+  "expected_training_batches_at_checkpoint": 801,
+  "vectorized_quantum_matches_original_loop": true,
+  "cpu_end_to_end_quantum_saliency_finite": true,
+  "checkpoint_tensors_finite": true,
+  "backend_bundle_loader_passed": true,
+  "cpu_verification_torch_version": "1.13.0",
+  "uses_test_images": false
+}
