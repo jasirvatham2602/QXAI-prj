@@ -2,7 +2,7 @@
 
 An MRI research workspace comparing a classical EfficientNet classifier with a simulated quantum–classical hybrid. Upload a public or synthetic research image, compare predictions and saliency maps, revisit private analysis histories, and export the evidence as a PDF.
 
-**[Open the research demo](https://qxai-fullstack-prj.netlify.app/)** · [Training and reproduction](training/README-v3.md) · [Deployment guide](DEPLOYMENT.md)
+**[Open the research demo](https://blue-qxai-prj.netlify.app/)** · [Training and reproduction](training/README-v3.md) · [Deployment guide](DEPLOYMENT.md)
 
 This repository contains the frontend, Python API, background worker, database migrations, model checkpoints, training code, and evaluation results. Research use only; the models are not clinically validated and scores are not calibrated clinical confidence.
 

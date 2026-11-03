@@ -31,7 +31,7 @@ if not args.apply:
     print('Validated existing free Space and runtime bundle. No remote changes made.');raise SystemExit()
 settings={**dotenv_values(root/'backend/.env.local'),**dotenv_values(root/'backend/.env.worker.local')}
 public={'SUPABASE_URL':settings['SUPABASE_URL'],'SUPABASE_PUBLISHABLE_KEY':settings.get('SUPABASE_PUBLISHABLE_KEY') or settings['SUPABASE_ANON_KEY'],
-        'FRONTEND_ORIGINS':'https://qxai-fullstack-prj.netlify.app,http://127.0.0.1:5174,http://localhost:5174',
+        'FRONTEND_ORIGINS':'https://blue-qxai-prj.netlify.app,http://127.0.0.1:5174,http://localhost:5174',
         'QXAI_ENV':'production','QXAI_MODEL_DIR':'/app'}
 secret=settings.get('SUPABASE_SECRET_KEY') or settings['SUPABASE_SERVICE_ROLE_KEY']
 # Add only to the existing backend's server-side secret store, never to source files.

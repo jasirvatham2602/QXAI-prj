@@ -4,7 +4,7 @@ QXAI combines a React dashboard, an authenticated FastAPI API, a background mode
 
 ## Hosting without paid services
 
-The frontend uses the existing Netlify site, `https://qxai-fullstack-prj.netlify.app`. `netlify.toml` builds `dist/` and provides the SPA redirect and basic response headers. `public/_redirects` and `_headers` provide the same settings for manual deployments. Its three public configuration values are `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, and `VITE_API_URL`. Never put a server secret in a VITE variable.
+The frontend uses the dedicated Netlify site, `https://blue-qxai-prj.netlify.app`. `netlify.toml` builds `dist/` and provides the SPA redirect and basic response headers. `public/_redirects` and `_headers` provide the same settings for manual deployments. Its three public configuration values are `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, and `VITE_API_URL`. Never put a server secret in a VITE variable.
 
 The existing Hugging Face Docker Space is `jasirvatham2602/qxai-backend-hugging-face`, running on CPU Basic. A single container supervises the API and one worker. No hardware upgrade, new compute Space, persistent disk purchase, or paid service is required by this configuration. The Space can sleep when inactive, so this is not an always-on availability guarantee. Opening the frontend contacts its readiness endpoint; a cold start may take time. Accepted jobs remain in Supabase and are recovered after a worker restart.
 
