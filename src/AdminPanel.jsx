@@ -36,7 +36,8 @@ export default function AdminPanel() {
   },[])
   useEffect(()=>{
     let active=true
-    accessEpoch.current++
+    const epochRef=accessEpoch
+    epochRef.current++
     setAuthorized(false);setRows([]);setSelected(null);setChecking(true);setError('')
     async function setup(){
       try{
@@ -47,7 +48,7 @@ export default function AdminPanel() {
       }catch(err){if(active)clearAccess(err)}
       finally{if(active)setChecking(false)}
     }
-    setup();return()=>{active=false;accessEpoch.current++}
+    setup();return()=>{active=false;epochRef.current++}
   },[load,session,clearAccess])
   useEffect(()=>{
     if(!authorized)return
@@ -71,6 +72,26 @@ export default function AdminPanel() {
       setNotice('Check your email. Open the sign-in link in this browser, then select Admin review. Only an authorized administrator account can view submitted scans.')
     }catch(err){setError(err.message)}finally{setBusy(false)}
   }
+  async function passwordLogin(event){
+    event.preventDefault();setBusy(true);setError('');setNotice('')
+    const form=new FormData(event.currentTarget)
+    try{
+      const {error}=await auth.auth.signInWithPassword({email:form.get('username').trim(),password:form.get('password')})
+      if(error)throw error
+      event.target.reset()
+    }catch(err){setError(err.message)}finally{setBusy(false)}
+  }
+  async function setPassword(event){
+    event.preventDefault();setBusy(true);setError('');setNotice('')
+    const form=event.currentTarget
+    const values=new FormData(form)
+    try{
+      if(values.get('password')!==values.get('confirm'))throw new Error('Passwords do not match.')
+      const {error}=await auth.auth.updateUser({password:values.get('password')})
+      if(error)throw error
+      form.reset();setNotice('Password saved. You can now sign in using your administrator email and password.')
+    }catch(err){setError(err.message)}finally{setBusy(false)}
+  }
   const current=rows.find(row=>row.id===selected)
   const filtered=rows.filter(row=>`${row.uploader?.email || ''} ${row.uploader?.display_name || ''} ${row.id} ${row.original_filename || ''} ${row.status}`.toLowerCase().includes(search.toLowerCase()))
   return <main className="research-shell">
@@ -86,12 +107,14 @@ export default function AdminPanel() {
         <label>Username<input name="username" autoComplete="username" required /></label>
         <label>Password<input name="password" type="password" autoComplete="current-password" required /></label>
         <button disabled={busy}>{busy?'Signing in…':'Sign in as admin'}</button>
-      </form>:session ? <><p>Signed in as {session.user.email}. This account could not access administrator records. Use your approved administrator account, or retry if the service is starting.</p><button onClick={()=>load().catch(clearAccess)}>Retry access</button><button onClick={()=>auth.auth.signOut()}>Sign out and switch account</button></>:auth ? <form onSubmit={emailLogin}><p>Use the email address of your approved administrator account. Administrator access is verified after sign-in.</p><label>Email address<input name="email" type="email" autoComplete="email" required /></label><button disabled={busy}>{busy?'Sending…':'Email administrator sign-in link'}</button></form>:<p>Authentication is not configured. Please contact the site owner.</p>}
+      </form>:session ? <><p>Signed in as {session.user.email}. This account could not access administrator records. Use your approved administrator account, or retry if the service is starting.</p><button onClick={()=>load().catch(clearAccess)}>Retry access</button><button onClick={()=>auth.auth.signOut()}>Sign out and switch account</button></>:auth ? <div className="admin-auth-forms"><form onSubmit={passwordLogin}><p>Use your administrator email as your username.</p><label>Username (email)<input name="username" type="email" autoComplete="username" required /></label><label>Password<input name="password" type="password" autoComplete="current-password" required /></label><button disabled={busy}>{busy?'Signing in…':'Sign in as admin'}</button></form><details><summary>First time signing in or forgot your password?</summary><form onSubmit={emailLogin}><p>Request a sign-in link, open it in this browser, and select Admin review. Once signed in, use Set administrator password below your records.</p><label>Administrator email<input name="email" type="email" autoComplete="email" required /></label><button disabled={busy}>{busy?'Sending…':'Email sign-in link'}</button></form></details></div>:<p>Authentication is not configured. Please contact the site owner.</p>}
     </section>:<>
       <section className="panel admin-summary"><div><h2>All submitted analyses</h2><p>{rows.length} records loaded</p></div>
         <label>Search uploader or analysis<input type="search" value={search} onChange={event=>setSearch(event.target.value)} placeholder="Email, name, filename, or analysis ID" /></label>
+        {session && <button onClick={()=>auth.auth.signOut()}>Sign out</button>}
         {localAvailable && <button onClick={async()=>{await adminApi('/admin/logout',{method:'POST'});setAuthorized(false);setRows([]);setSelected(null)}}>End admin session</button>}
       </section>
+      {auth && !previewMode && <details className="panel admin-auth-forms"><summary>Set administrator password</summary><form onSubmit={setPassword}><p>Set a password for your signed-in account to use email and password sign-in next time.</p><label>New password<input name="password" type="password" autoComplete="new-password" minLength={12} required /></label><label>Confirm password<input name="confirm" type="password" autoComplete="new-password" minLength={12} required /></label><button disabled={busy}>{busy?'Saving…':'Save password'}</button></form></details>}
       <div className="workspace-grid"><section className="panel"><h2>Scans and uploaders</h2>
         {!filtered.length && <p>No matching analyses.</p>}
         {filtered.map(row=><button className={'history-row '+(selected===row.id?'selected':'')} key={row.id} onClick={()=>setSelected(row.id)}>
