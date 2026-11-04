@@ -8,6 +8,8 @@ export const auth = previewMode ? previewAuth : url && key ? createClient(url, k
 const apiUrl = new URL(import.meta.env.VITE_API_URL || 'http://localhost:7860')
 if (['localhost','127.0.0.1'].includes(apiUrl.hostname) && ['localhost','127.0.0.1'].includes(window.location.hostname)) apiUrl.hostname = window.location.hostname
 const base = apiUrl.href.replace(/\/$/, '')
+const demoAdminBase = 'https://jasirvatham2602-qxai-backend-hugging-face.hf.space'
+const isLoopbackPage = ['localhost','127.0.0.1'].includes(window.location.hostname)
 export async function checkReadiness() {
   if (previewMode) return true
   try {
@@ -39,10 +41,20 @@ export async function adminApi(path,options={}) {
     }
   }
   const session=auth ? (await auth.auth.getSession()).data.session : null
-  const response=await fetch(base+path,{...options,credentials:'include',headers:{
-    ...(options.body && !(options.body instanceof FormData)?{'Content-Type':'application/json'}:{}),
-    ...(session?{Authorization:`Bearer ${session.access_token}`} : {}),...options.headers,
-  }})
+  const targets=[base]
+  if(isLoopbackPage && base!==demoAdminBase)targets.push(demoAdminBase)
+  let response
+  for (let index=0;index<targets.length;index++) {
+    try {
+      response=await fetch(targets[index]+path,{...options,credentials:'include',headers:{
+        ...(options.body && !(options.body instanceof FormData)?{'Content-Type':'application/json'}:{}),
+        ...(session && targets[index]===base?{Authorization:`Bearer ${session.access_token}`} : {}),...options.headers,
+      }})
+      break
+    } catch (error) {
+      if(index===targets.length-1)throw error
+    }
+  }
   if(!response.ok){const data=await response.json().catch(()=>({}));throw Object.assign(new Error(typeof data.detail==='string'?data.detail:'Admin request failed'),{status:response.status})}
   if(response.status===204)return null
   return response.headers.get('content-type')?.includes('image/')?response.blob():response.json()
