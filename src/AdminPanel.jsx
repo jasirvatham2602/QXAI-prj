@@ -59,7 +59,7 @@ export default function AdminPanel() {
     event.preventDefault();setBusy(true);setError('')
     const form=new FormData(event.currentTarget)
     try{
-      await adminApi('/admin/login',{method:'POST',body:JSON.stringify({username:form.get('username'),password:form.get('password')})})
+      await adminApi('/admin/login',{method:'POST',body:JSON.stringify({username:form.get('username'),password:form.get('password')}),headers:{'Content-Type':'text/plain;charset=UTF-8'}})
       await load()
     }catch(err){setError(err.message)}finally{setBusy(false)}
   }

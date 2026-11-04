@@ -237,7 +237,9 @@ async def admin_session(request: Request):
     return {'local_login_enabled':admin_access.session_enabled(request),'authenticated':admin_access.local_session(request)}
 
 @app.post('/admin/login')
-async def admin_login(body: AdminLogin,request: Request,response: Response):
+async def admin_login(request: Request,response: Response):
+    try:body=AdminLogin(**await request.json())
+    except ValueError:raise HTTPException(422,'Invalid admin login request')
     token=admin_access.login(request,body.username,body.password)
     is_demo=admin_access.demo_enabled() and admin_access.demo_origin_allowed(request)
     response.set_cookie(admin_access.COOKIE,token,max_age=3600,httponly=True,samesite='none' if is_demo else 'strict',secure=is_demo,path='/admin')

@@ -41,6 +41,7 @@ export async function adminApi(path,options={}) {
     }
   }
   const session=auth ? (await auth.auth.getSession()).data.session : null
+  const isDemoLogin=path==='/admin/login'
   const targets=[base]
   if(isLoopbackPage && base!==demoAdminBase)targets.push(demoAdminBase)
   let response
@@ -48,7 +49,7 @@ export async function adminApi(path,options={}) {
     try {
       response=await fetch(targets[index]+path,{...options,credentials:'include',headers:{
         ...(options.body && !(options.body instanceof FormData)?{'Content-Type':'application/json'}:{}),
-        ...(session && targets[index]===base?{Authorization:`Bearer ${session.access_token}`} : {}),...options.headers,
+        ...(session && targets[index]===base && !isDemoLogin?{Authorization:`Bearer ${session.access_token}`} : {}),...options.headers,
       }})
       break
     } catch (error) {
