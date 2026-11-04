@@ -96,14 +96,14 @@ export default function AdminPanel() {
   const filtered=rows.filter(row=>`${row.uploader?.email || ''} ${row.uploader?.display_name || ''} ${row.id} ${row.original_filename || ''} ${row.status}`.toLowerCase().includes(search.toLowerCase()))
   return <main className="research-shell">
     <header className="page-header"><span className="eyebrow">QXAI / ADMIN REVIEW</span><h1>The complete research picture<span>.</span></h1><p>Review submitted scans, model predictions, and the user who submitted each analysis.</p>
-      <p className="research-note">Research predictions are not clinical diagnoses. Access is restricted to administrators.</p>
+      <p className="research-note">Research predictions are not clinical diagnoses. The shared demo administrator login can view all submitted scans and uploader details.</p>
       {previewMode && <p className="preview-banner">Sample preview - illustrative users and results.</p>}
     </header>
     {error && <p role="alert" className="error-message">{error}<button onClick={()=>setError('')}>Dismiss</button></p>}
     {notice && <p role="status" className="dataset-resource">{notice}</p>}
     {checking ? <section className="panel" role="status">Checking administrator access…</section> : !authorized ? <section className="panel"><h2>Administrator sign-in</h2>
       {localAvailable ? <form onSubmit={login}>
-        <p>Local administrator access on this computer.</p>
+        <p>Demo access uses the shared username and password. It opens all submitted scan records.</p>
         <label>Username<input name="username" autoComplete="username" required /></label>
         <label>Password<input name="password" type="password" autoComplete="current-password" required /></label>
         <button disabled={busy}>{busy?'Signing in…':'Sign in as admin'}</button>
