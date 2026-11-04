@@ -100,6 +100,7 @@ export default function Home() {
       <div className="header-title"><div><span className="eyebrow">CLASSICAL + QUANTUM INTELLIGENCE</span><h1>Your research, in focus<span>.</span></h1>
       <p>Compare predictions. Explore explanations. Keep the evidence.</p></div><div className="header-orbit"><Icon name="spark" size={32}/><span>QXAI / LAB</span></div></div>
       <p className="research-note"><Icon name="info" size={16}/> Research workspace · Public or synthetic scans only. Predictions are not clinical diagnoses.</p>
+      <p className="dataset-resource">Need a research sample? <a href="https://www.kaggle.com/datasets/jasirvatham2602/classifying-ad-and-pd-v3?select=3_cls_2" target="_blank" rel="noopener noreferrer">Download public MRI scans from Kaggle <Icon name="arrow" size={14}/></a><span>Choose a PNG or JPEG from the 3_cls_2 folder. These samples come from the project dataset and are not an independent evaluation.</span></p>
       <p role="status" className={`service-status ${health}`}>{health === 'ready' ? '● Model worker ready' : health === 'checking' ? 'Checking processing availability…' : 'Processing worker is starting or unavailable. Submitted analyses will wait in the queue.'}</p>
       {session && !previewMode && <button onClick={() => auth.auth.signOut()}>Sign out</button>}
     </header>
