@@ -1,4 +1,4 @@
-"""Admin access: verified Supabase admin JWTs, plus explicitly enabled loopback-only development login."""
+"""Admin access: verified Supabase JWTs and an optional rate-limited demo password."""
 import hashlib
 import hmac
 import ipaddress
@@ -45,8 +45,21 @@ def local_enabled(request: Request):
                 and origin.port in (5173,5174))
 
 
+def demo_enabled():
+    return os.getenv('QXAI_ENABLE_DEMO_ADMIN')=='true' and os.getenv('QXAI_ENV','production')=='production'
+
+
+def demo_origin_allowed(request: Request):
+    origin=request.headers.get('origin','')
+    return bool(origin and origin in {item.strip() for item in os.getenv('FRONTEND_ORIGINS','').split(',') if item.strip()})
+
+
+def session_enabled(request: Request):
+    return local_enabled(request) or (demo_enabled() and demo_origin_allowed(request))
+
+
 def local_session(request: Request):
-    if not local_enabled(request):return False
+    if not session_enabled(request):return False
     token=request.cookies.get(COOKIE,'')
     key=hashlib.sha256(token.encode()).hexdigest()
     expires=_sessions.get(key,0)
@@ -56,13 +69,15 @@ def local_session(request: Request):
 
 
 def login(request,username,password):
-    if not local_enabled(request):raise HTTPException(403,'Local admin login is disabled here')
+    is_local=local_enabled(request)
+    is_demo=demo_enabled() and demo_origin_allowed(request)
+    if not (is_local or is_demo):raise HTTPException(403,'Admin demo login is disabled here')
     now=time.time();history=_attempts[request.client.host]
     while history and history[0]<now-600:history.popleft()
     if len(history)>=5:raise HTTPException(429,'Too many attempts. Try again in ten minutes.')
     history.append(now)
     if not (hmac.compare_digest(username,os.getenv('QXAI_LOCAL_ADMIN_USERNAME','admin')) and
-            password_matches(password,os.getenv('QXAI_LOCAL_ADMIN_PASSWORD_HASH',''))):
+            password_matches(password,os.getenv('QXAI_DEMO_ADMIN_PASSWORD_HASH' if is_demo else 'QXAI_LOCAL_ADMIN_PASSWORD_HASH',''))):
         raise HTTPException(401,'Incorrect admin credentials')
     history.clear()
     # Discard expired sessions so the process does not retain an unbounded token list.

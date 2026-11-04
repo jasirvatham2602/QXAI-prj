@@ -48,3 +48,17 @@ def test_admin_login_rate_limit(local_client):
     for _ in range(5):
         assert local_client.post('/admin/login',headers=ORIGIN,json={'username':'admin','password':'incorrect'}).status_code==401
     assert local_client.post('/admin/login',headers=ORIGIN,json={'username':'admin','password':'password'}).status_code==429
+
+
+def test_public_demo_login_requires_enabled_flag_and_allowed_origin(local_client,monkeypatch):
+    monkeypatch.setenv('QXAI_ENV','production')
+    monkeypatch.setenv('QXAI_ENABLE_DEMO_ADMIN','true')
+    monkeypatch.setenv('FRONTEND_ORIGINS','https://blue-qxai-prj.netlify.app')
+    monkeypatch.setenv('QXAI_DEMO_ADMIN_PASSWORD_HASH',admin_access.password_hash('password'))
+    headers={'Origin':'https://blue-qxai-prj.netlify.app'}
+    result=local_client.post('/admin/login',headers=headers,json={'username':'admin','password':'password'})
+    assert result.status_code==200
+    assert 'samesite=none' in result.headers['set-cookie'].lower()
+    assert 'secure' in result.headers['set-cookie'].lower()
+    assert local_client.get('/admin/session',headers=headers).json()['authenticated'] is True
+    assert local_client.post('/admin/login',headers={'Origin':'https://attacker.example'},json={'username':'admin','password':'password'}).status_code==403

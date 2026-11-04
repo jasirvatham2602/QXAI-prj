@@ -234,13 +234,14 @@ async def admin_request(method,path,principal,**kwargs):
 
 @app.get('/admin/session')
 async def admin_session(request: Request):
-    return {'local_login_enabled':admin_access.local_enabled(request),'authenticated':admin_access.local_session(request)}
+    return {'local_login_enabled':admin_access.session_enabled(request),'authenticated':admin_access.local_session(request)}
 
 @app.post('/admin/login')
 async def admin_login(body: AdminLogin,request: Request,response: Response):
     token=admin_access.login(request,body.username,body.password)
-    response.set_cookie(admin_access.COOKIE,token,max_age=3600,httponly=True,samesite='strict',secure=False,path='/admin')
-    return {'authenticated':True,'local_only':True}
+    is_demo=admin_access.demo_enabled() and admin_access.demo_origin_allowed(request)
+    response.set_cookie(admin_access.COOKIE,token,max_age=3600,httponly=True,samesite='none' if is_demo else 'strict',secure=is_demo,path='/admin')
+    return {'authenticated':True,'demo':is_demo}
 
 @app.post('/admin/logout',status_code=204)
 async def admin_logout(request: Request,response: Response):
