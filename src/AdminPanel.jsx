@@ -1,11 +1,15 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { adminApi, auth, previewMode } from './cloud'
 import AnalysisDetail from './AnalysisDetail'
 import './Dashboard.css'
 
 const readAdminImage=(path,options)=>adminApi('/admin'+path,options)
 export default function AdminPanel() {
+  const accessEpoch=useRef(0)
   const [authorized,setAuthorized]=useState(false)
+  const [session,setSession]=useState(null)
+  const [notice,setNotice]=useState('')
+  const [checking,setChecking]=useState(true)
   const [localAvailable,setLocalAvailable]=useState(false)
   const [rows,setRows]=useState([])
   const [selected,setSelected]=useState(null)
@@ -15,23 +19,36 @@ export default function AdminPanel() {
   const [limit,setLimit]=useState(50)
   const clearAccess=useCallback(err=>{setError(err.message);if([401,403].includes(err.status)){setAuthorized(false);setRows([]);setSelected(null)}},[])
   const load=useCallback(async()=>{
+    const epoch=accessEpoch.current
     const batches=await Promise.all(Array.from({length:limit/50},(_,page)=>adminApi(`/admin/analyses?limit=50&offset=${page*50}`)))
+    if(epoch!==accessEpoch.current)return
     setRows([...new Map(batches.flat().map(row=>[row.id,row])).values()])
     setAuthorized(true)
   },[limit])
   useEffect(()=>{
+    if(!auth)return
+    const {data}=auth.auth.onAuthStateChange((_event,value)=>{accessEpoch.current++;setSession(value)})
+    auth.auth.getSession().then(({data,error})=>{
+      if(error)setError(error.message)
+      setSession(data.session)
+    })
+    return()=>data.subscription.unsubscribe()
+  },[])
+  useEffect(()=>{
     let active=true
+    accessEpoch.current++
+    setAuthorized(false);setRows([]);setSelected(null);setChecking(true);setError('')
     async function setup(){
       try{
-        const session=await adminApi('/admin/session')
+        const access=await adminApi('/admin/session')
         if(!active)return
-        setLocalAvailable(session.local_login_enabled)
-        const user=auth ? (await auth.auth.getSession()).data.session?.user : null
-        if(session.authenticated || user?.app_metadata?.role==='qxai_admin' || previewMode)await load()
-      }catch(err){if(active)setError(err.message)}
+        setLocalAvailable(access.local_login_enabled)
+        if(access.authenticated || session || previewMode)await load()
+      }catch(err){if(active)clearAccess(err)}
+      finally{if(active)setChecking(false)}
     }
-    setup();return()=>{active=false}
-  },[load])
+    setup();return()=>{active=false;accessEpoch.current++}
+  },[load,session,clearAccess])
   useEffect(()=>{
     if(!authorized)return
     const timer=setInterval(()=>load().catch(clearAccess),5000)
@@ -45,6 +62,15 @@ export default function AdminPanel() {
       await load()
     }catch(err){setError(err.message)}finally{setBusy(false)}
   }
+  async function emailLogin(event){
+    event.preventDefault();setBusy(true);setError('');setNotice('')
+    const email=new FormData(event.currentTarget).get('email')
+    try{
+      const {error}=await auth.auth.signInWithOtp({email,options:{shouldCreateUser:false,emailRedirectTo:window.location.origin}})
+      if(error)throw error
+      setNotice('Check your email. Open the sign-in link in this browser, then select Admin review. Only an authorized administrator account can view submitted scans.')
+    }catch(err){setError(err.message)}finally{setBusy(false)}
+  }
   const current=rows.find(row=>row.id===selected)
   const filtered=rows.filter(row=>`${row.uploader?.email || ''} ${row.uploader?.display_name || ''} ${row.id} ${row.original_filename || ''} ${row.status}`.toLowerCase().includes(search.toLowerCase()))
   return <main className="research-shell">
@@ -53,13 +79,14 @@ export default function AdminPanel() {
       {previewMode && <p className="preview-banner">Sample preview - illustrative users and results.</p>}
     </header>
     {error && <p role="alert" className="error-message">{error}<button onClick={()=>setError('')}>Dismiss</button></p>}
-    {!authorized ? <section className="panel"><h2>Administrator sign-in</h2>
+    {notice && <p role="status" className="dataset-resource">{notice}</p>}
+    {checking ? <section className="panel" role="status">Checking administrator access…</section> : !authorized ? <section className="panel"><h2>Administrator sign-in</h2>
       {localAvailable ? <form onSubmit={login}>
         <p>Local administrator access on this computer.</p>
         <label>Username<input name="username" autoComplete="username" required /></label>
         <label>Password<input name="password" type="password" autoComplete="current-password" required /></label>
         <button disabled={busy}>{busy?'Signing in…':'Sign in as admin'}</button>
-      </form>:<p>Sign in with a verified administrator account from the main page to access this panel.</p>}
+      </form>:session ? <><p>Signed in as {session.user.email}. This account could not access administrator records. Use your approved administrator account, or retry if the service is starting.</p><button onClick={()=>load().catch(clearAccess)}>Retry access</button><button onClick={()=>auth.auth.signOut()}>Sign out and switch account</button></>:auth ? <form onSubmit={emailLogin}><p>Use the email address of your approved administrator account. Administrator access is verified after sign-in.</p><label>Email address<input name="email" type="email" autoComplete="email" required /></label><button disabled={busy}>{busy?'Sending…':'Email administrator sign-in link'}</button></form>:<p>Authentication is not configured. Please contact the site owner.</p>}
     </section>:<>
       <section className="panel admin-summary"><div><h2>All submitted analyses</h2><p>{rows.length} records loaded</p></div>
         <label>Search uploader or analysis<input type="search" value={search} onChange={event=>setSearch(event.target.value)} placeholder="Email, name, filename, or analysis ID" /></label>
