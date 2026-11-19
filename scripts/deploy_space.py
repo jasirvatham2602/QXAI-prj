@@ -7,7 +7,9 @@ sys.path.insert(0,str(root/'backend'))
 import shlex
 def dotenv_values(path):
     result={}
-    for line in Path(path).read_text().splitlines():
+    path=Path(path)
+    if not path.is_file():return result
+    for line in path.read_text().splitlines():
         if not line.strip() or line.lstrip().startswith('#') or '=' not in line:continue
         name,value=line.split('=',1)
         parts=shlex.split(value,comments=True)
