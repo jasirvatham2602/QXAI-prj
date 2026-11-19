@@ -23,6 +23,7 @@
 - Supports account sign-in, private per-user analysis histories, and private scan storage.
 - Provides an administrator review area with uploader and processing details.
 - Exports analyses as PDF, self-contained HTML, or JSON, including the original image filename.
+- Includes a Project Guide chat that retrieves reviewed public project facts and selected figures; live LLM answers use a backend-only provider configuration.
 - Processes model jobs through a background worker with bounded retries, timeouts, and recovery.
 - Includes service health checks and encrypted local backups with offline recovery verification.
 

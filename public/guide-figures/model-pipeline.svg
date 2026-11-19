@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">QXAI classical and hybrid model pipeline</title>
+  <desc id="desc">MRI images pass through a shared EfficientNet-B0 feature extractor. One branch uses a classical neural head; the other encodes four features into a classically simulated four-qubit VQC before a classifier.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f8fcfa"/><stop offset="1" stop-color="#edf5fb"/></linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5 0 10z" fill="#64877e"/></marker>
+    <style>.h{font:700 28px Arial,sans-serif;fill:#163b3d}.s{font:16px Arial,sans-serif;fill:#61777b}.label{font:700 16px Arial,sans-serif;fill:#174f49}.small{font:14px Arial,sans-serif;fill:#526a70}.box{fill:#fff;stroke:#cce3da;stroke-width:2}.xai{fill:#e8f3fb;stroke:#bfd8e8;stroke-width:2}.qxai{fill:#e4f4ed;stroke:#b7dccd;stroke-width:2}.line{stroke:#789a90;stroke-width:3;fill:none;marker-end:url(#arrow)}.branch{stroke:#789a90;stroke-width:3;fill:none}</style>
+  </defs>
+  <rect width="1200" height="620" rx="24" fill="url(#bg)"/>
+  <text x="48" y="58" class="h">QXAI model comparison pipeline</text>
+  <text x="48" y="88" class="s">A shared image backbone feeds two different classification paths</text>
+  <rect x="48" y="228" width="130" height="102" rx="16" class="box"/><text x="113" y="267" text-anchor="middle" class="label">MRI image</text><text x="113" y="295" text-anchor="middle" class="small">AD · control · PD</text>
+  <path d="M180 279h32" class="line"/>
+  <rect x="218" y="208" width="206" height="142" rx="18" class="box"/><text x="321" y="250" text-anchor="middle" class="label">EfficientNet-B0</text><text x="321" y="280" text-anchor="middle" class="small">shared feature extractor</text><text x="321" y="310" text-anchor="middle" class="small">1280 features</text>
+  <path d="M426 279h36M462 159v240M462 159h34M462 399h34" class="branch"/>
+  <path d="M464 159h27M464 399h27" class="line"/>
+  <rect x="502" y="110" width="150" height="98" rx="16" class="xai"/><text x="577" y="147" text-anchor="middle" class="label">Classical XAI</text><text x="577" y="176" text-anchor="middle" class="small">1280 features</text>
+  <rect x="502" y="350" width="150" height="98" rx="16" class="qxai"/><text x="577" y="387" text-anchor="middle" class="label">Hybrid QXAI</text><text x="577" y="416" text-anchor="middle" class="small">1280 features</text>
+  <path d="M654 159h28M654 399h28" class="line"/>
+  <rect x="689" y="110" width="185" height="98" rx="16" class="xai"/><text x="781" y="147" text-anchor="middle" class="label">Dense classifier</text><text x="781" y="176" text-anchor="middle" class="small">1280 → 256 → 3</text>
+  <rect x="689" y="350" width="185" height="98" rx="16" class="qxai"/><text x="781" y="387" text-anchor="middle" class="label">Encode + VQC</text><text x="781" y="416" text-anchor="middle" class="small">1280 → 4 qubits → 4 readouts</text>
+  <path d="M876 159h28M876 399h28" class="line"/>
+  <rect x="911" y="110" width="132" height="98" rx="16" class="xai"/><text x="977" y="147" text-anchor="middle" class="label">3 classes</text><text x="977" y="176" text-anchor="middle" class="small">AD · control · PD</text>
+  <rect x="911" y="350" width="132" height="98" rx="16" class="qxai"/><text x="977" y="387" text-anchor="middle" class="label">Dense head</text><text x="977" y="416" text-anchor="middle" class="small">4 → 64 → 3</text>
+  <path d="M1045 399h28" class="line"/>
+  <rect x="1080" y="350" width="86" height="98" rx="16" class="qxai"/><text x="1123" y="387" text-anchor="middle" class="label">3</text><text x="1123" y="416" text-anchor="middle" class="small">classes</text>
+  <rect x="218" y="496" width="948" height="68" rx="15" fill="#fff5df" stroke="#ecd7a8" stroke-width="2"/>
+  <text x="692" y="525" text-anchor="middle" class="label" fill="#795d24">The VQC is simulated by PennyLane on classical hardware.</text>
+  <text x="692" y="548" text-anchor="middle" class="small">This architecture comparison does not demonstrate quantum advantage.</text>
+</svg>

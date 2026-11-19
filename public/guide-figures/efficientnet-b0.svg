@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 580" role="img" aria-labelledby="title desc">
+  <title id="title">Simplified EfficientNet-B0 architecture used by QXAI</title>
+  <desc id="desc">MRI image input passes through a convolutional stem, seven MBConv stages, a 1280-channel projection and global average pooling to produce 1280 features.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f8fcfa"/><stop offset="1" stop-color="#edf6f4"/></linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5 0 10z" fill="#64877e"/></marker>
+    <style>.h{font:700 28px Arial,sans-serif;fill:#163b3d}.s{font:16px Arial,sans-serif;fill:#61777b}.label{font:700 16px Arial,sans-serif;fill:#174f49}.small{font:14px Arial,sans-serif;fill:#526a70}.box{fill:#fff;stroke:#cce3da;stroke-width:2}.stage{fill:#e4f4ed;stroke:#b7dccd;stroke-width:2}.line{stroke:#789a90;stroke-width:3;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect width="1200" height="580" rx="24" fill="url(#bg)"/>
+  <text x="48" y="58" class="h">EfficientNet-B0 feature extractor</text>
+  <text x="48" y="88" class="s">Simplified view of the shared image backbone in the QXAI project</text>
+  <rect x="48" y="220" width="128" height="106" rx="16" class="box"/><text x="112" y="260" text-anchor="middle" class="label">MRI image</text><text x="112" y="286" text-anchor="middle" class="small">input</text>
+  <path d="M178 273h26" class="line"/>
+  <rect x="211" y="220" width="122" height="106" rx="16" class="box"/><text x="272" y="257" text-anchor="middle" class="label">Conv stem</text><text x="272" y="284" text-anchor="middle" class="small">3×3 · stride 2</text>
+  <path d="M335 273h20" class="line"/>
+  <g>
+    <rect x="363" y="184" width="91" height="178" rx="14" class="stage"/><text x="408" y="216" text-anchor="middle" class="label">Stage 1</text><text x="408" y="249" text-anchor="middle" class="small">MBConv1</text><text x="408" y="274" text-anchor="middle" class="small">3×3</text><text x="408" y="309" text-anchor="middle" class="small">×1</text><text x="408" y="336" text-anchor="middle" class="small">16 ch</text>
+    <rect x="463" y="184" width="91" height="178" rx="14" class="stage"/><text x="508" y="216" text-anchor="middle" class="label">Stage 2</text><text x="508" y="249" text-anchor="middle" class="small">MBConv6</text><text x="508" y="274" text-anchor="middle" class="small">3×3</text><text x="508" y="309" text-anchor="middle" class="small">×2 · ↓</text><text x="508" y="336" text-anchor="middle" class="small">24 ch</text>
+    <rect x="563" y="184" width="91" height="178" rx="14" class="stage"/><text x="608" y="216" text-anchor="middle" class="label">Stage 3</text><text x="608" y="249" text-anchor="middle" class="small">MBConv6</text><text x="608" y="274" text-anchor="middle" class="small">5×5</text><text x="608" y="309" text-anchor="middle" class="small">×2 · ↓</text><text x="608" y="336" text-anchor="middle" class="small">40 ch</text>
+    <rect x="663" y="184" width="91" height="178" rx="14" class="stage"/><text x="708" y="216" text-anchor="middle" class="label">Stage 4</text><text x="708" y="249" text-anchor="middle" class="small">MBConv6</text><text x="708" y="274" text-anchor="middle" class="small">3×3</text><text x="708" y="309" text-anchor="middle" class="small">×3 · ↓</text><text x="708" y="336" text-anchor="middle" class="small">80 ch</text>
+    <rect x="763" y="184" width="91" height="178" rx="14" class="stage"/><text x="808" y="216" text-anchor="middle" class="label">Stage 5</text><text x="808" y="249" text-anchor="middle" class="small">MBConv6</text><text x="808" y="274" text-anchor="middle" class="small">5×5</text><text x="808" y="309" text-anchor="middle" class="small">×3</text><text x="808" y="336" text-anchor="middle" class="small">112 ch</text>
+    <rect x="863" y="184" width="91" height="178" rx="14" class="stage"/><text x="908" y="216" text-anchor="middle" class="label">Stage 6</text><text x="908" y="249" text-anchor="middle" class="small">MBConv6</text><text x="908" y="274" text-anchor="middle" class="small">5×5</text><text x="908" y="309" text-anchor="middle" class="small">×4 · ↓</text><text x="908" y="336" text-anchor="middle" class="small">192 ch</text>
+    <rect x="963" y="184" width="91" height="178" rx="14" class="stage"/><text x="1008" y="216" text-anchor="middle" class="label">Stage 7</text><text x="1008" y="249" text-anchor="middle" class="small">MBConv6</text><text x="1008" y="274" text-anchor="middle" class="small">3×3</text><text x="1008" y="309" text-anchor="middle" class="small">×1</text><text x="1008" y="336" text-anchor="middle" class="small">320 ch</text>
+  </g>
+  <path d="M1057 273h20" class="line"/>
+  <rect x="1084" y="220" width="96" height="106" rx="16" class="box"/><text x="1132" y="251" text-anchor="middle" class="label">1×1</text><text x="1132" y="276" text-anchor="middle" class="small">projection</text><text x="1132" y="302" text-anchor="middle" class="small">+ pooling</text>
+  <rect x="230" y="412" width="740" height="74" rx="16" fill="#fff" stroke="#d8e6e2" stroke-width="2"/>
+  <text x="600" y="443" text-anchor="middle" class="label">Output: 1280-dimensional image feature vector</text>
+  <text x="600" y="469" text-anchor="middle" class="small">Feeds either the classical classification head or the hybrid quantum-classical path</text>
+  <text x="48" y="540" class="small">MBConv blocks include inverted bottleneck convolutions and squeeze-and-excitation; skip connections are used where shapes allow.</text>
+</svg>

@@ -8,6 +8,26 @@ export const auth = previewMode ? previewAuth : url && key ? createClient(url, k
 const apiUrl = new URL(import.meta.env.VITE_API_URL || 'http://localhost:7860')
 if (['localhost','127.0.0.1'].includes(apiUrl.hostname) && ['localhost','127.0.0.1'].includes(window.location.hostname)) apiUrl.hostname = window.location.hostname
 const base = apiUrl.href.replace(/\/$/, '')
+export const apiBaseUrl = base
+const projectGuideBase = import.meta.env.DEV && ['localhost', '127.0.0.1'].includes(window.location.hostname)
+  ? `http://${window.location.hostname}:7860`
+  : base
+export async function publicApi(path, options = {}) {
+  let response
+  try {
+    response = await fetch(projectGuideBase + path, {
+      ...options,
+      headers: { 'Content-Type': 'application/json', ...options.headers },
+      signal: options.signal || AbortSignal.timeout(45000),
+    })
+  } catch (error) {
+    if (error.name === 'TimeoutError' || error.name === 'AbortError') throw new Error('The Project Guide request timed out. Please try again.')
+    throw new Error('Could not reach the QXAI backend. Start the local API or check its deployment.')
+  }
+  const data = await response.json().catch(() => ({}))
+  if (!response.ok) throw Object.assign(new Error(typeof data.detail === 'string' ? data.detail : 'The Project Guide could not answer right now.'), { status: response.status })
+  return data
+}
 const demoAdminBase = 'https://jasirvatham2602-qxai-backend-hugging-face.hf.space'
 const isLoopbackPage = ['localhost','127.0.0.1'].includes(window.location.hostname)
 export async function checkReadiness() {

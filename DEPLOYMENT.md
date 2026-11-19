@@ -17,6 +17,10 @@ python scripts/deploy_space.py /private/tmp/qxai-space-release
 
 The second command only verifies the existing Space and bundle. `--apply` configures the existing backend's server-side secret/variables and uploads the runtime. It never requests paid hardware. Use an authenticated Hugging Face environment with `huggingface_hub` installed. Docker builds cannot be run locally on this machine because Docker is unavailable; the host build and readiness must be checked before considering a release deployed.
 
+### Project Guide RAG backend
+
+The Project Guide uses `POST /guide/chat` to retrieve reviewed public passages from `backend/guide_rag.py`, then calls an OpenAI-compatible chat-completions endpoint. `GET /guide/status` reports whether the server-side provider settings are present. Configure `QXAI_LLM_API_KEY`, `QXAI_LLM_MODEL`, and optionally `QXAI_LLM_BASE_URL` in `backend/.env.local` for local API development. The `scripts/deploy_space.py --apply` release step stores the API key only as a Hugging Face Space secret and the model/base URL as server-side variables. The default base URL is `https://api.openai.com/v1`. Never put these settings in Netlify or any `VITE_` variable. The endpoint limits each client to 12 requests per minute, accepts questions up to 1,200 characters, bounds model output, and returns only curated figure metadata. It does not access scan data or store chat content. Provider requests contain the question and retrieved public passages; users should not enter personal or health information. The chat reports that the LLM is unconfigured until both the key and model name are set.
+
 ## Local development
 
 - Frontend: `http://127.0.0.1:5174/`

@@ -1,9 +1,12 @@
 """Authenticated research API; Supabase enforces ownership on every data request."""
 import io
+from collections import defaultdict, deque
 from functools import lru_cache
 import json
 import logging
 import os
+import re
+import time
 import uuid
 import unicodedata
 import warnings
@@ -20,6 +23,7 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 import settings
 from model_bundle import load_bundle
 from storage import analysis_prefix, object_path
+import guide_rag
 
 log = logging.getLogger('qxai')
 URL = os.getenv('SUPABASE_URL', '').rstrip('/')
@@ -68,7 +72,7 @@ async def identity(auth: HTTPAuthorizationCredentials = Depends(bearer)):
 
 app = FastAPI(title='QXAI Research API')
 app.add_middleware(CORSMiddleware,
-    allow_origins=[x.strip() for x in os.getenv('FRONTEND_ORIGINS', 'http://localhost:5173').split(',')],
+    allow_origins=[x.strip() for x in os.getenv('FRONTEND_ORIGINS', 'http://localhost:5173,http://127.0.0.1:5174,http://localhost:5174,https://blue-qxai-prj.netlify.app').split(',')],
     allow_credentials=True, allow_methods=['GET', 'POST', 'DELETE'], allow_headers=['Authorization', 'Content-Type'])
 
 @app.middleware('http')
@@ -89,6 +93,75 @@ def model_metadata():
 @app.get('/health/live')
 def live():
     return {'status': 'alive'}
+
+
+# Public Q&A is separate from the authenticated analysis and admin APIs. It can
+# retrieve curated repository material only; no user or scan data is available.
+from pydantic import BaseModel, Field
+from fastapi import Request
+
+class GuideQuestion(BaseModel):
+    question: str = Field(min_length=2, max_length=1200)
+
+_guide_requests: dict[str, deque[float]] = defaultdict(deque)
+_GUIDE_RATE_WINDOW = 60
+_GUIDE_RATE_LIMIT = 12
+_PERSONAL_MEDICAL = re.compile(
+    r"\b(my scan|my mri|my result|my symptoms|my risk|my diagnosis|my image|"
+    r"do i have|what disease do i|am i sick|diagnos(?:e|is|ed)|treatment for me|"
+    r"read my|interpret my|should i take|what should i take)\b",
+    re.IGNORECASE,
+)
+
+def _guide_rate_limit(request: Request):
+    now = time.monotonic()
+    client = request.client.host if request.client else 'unknown'
+    recent = _guide_requests[client]
+    while recent and now - recent[0] > _GUIDE_RATE_WINDOW:
+        recent.popleft()
+    if len(recent) >= _GUIDE_RATE_LIMIT:
+        raise HTTPException(429, 'Too many Project Guide questions. Please wait a minute and try again.')
+    recent.append(now)
+    # Keep the in-memory limiter bounded if clients rotate their addresses.
+    if len(_guide_requests) > 2048:
+        for key in list(_guide_requests)[:512]:
+            if not _guide_requests[key] or now - _guide_requests[key][-1] > _GUIDE_RATE_WINDOW:
+                _guide_requests.pop(key, None)
+
+@app.get('/guide/status')
+def guide_status():
+    return guide_rag.model_status()
+
+@app.post('/guide/chat')
+async def guide_chat(body: GuideQuestion, request: Request):
+    _guide_rate_limit(request)
+    question = body.question.strip()
+    if len(question) < 2:
+        raise HTTPException(422, 'Enter a longer question.')
+    if _PERSONAL_MEDICAL.search(question):
+        return {
+            'answer': "I can’t interpret personal scans, estimate personal risk, diagnose, or recommend treatment. QXAI is a research demonstration, not a clinical tool. I can explain the project, its methods, or its aggregate evaluation.",
+            'sources': [{'label': guide_rag.DOCS[0]['source'], 'url': guide_rag.DOCS[0]['url']}],
+            'figures': [],
+            'safety_refusal': True,
+        }
+    docs = guide_rag.retrieve(question)
+    if not docs:
+        return {
+            'answer': "I couldn’t find a reviewed QXAI source that answers that. Try asking about the VQC, model comparison, results, limitations, or software architecture.",
+            'sources': [], 'figures': [], 'safety_refusal': False,
+        }
+    answer = await guide_rag.answer(question, docs)
+    sources = [
+        {'citation': index, 'label': doc['source'], 'url': doc['url']}
+        for index, doc in enumerate(docs, start=1)
+    ]
+    return {
+        'answer': answer,
+        'sources': sources,
+        'figures': guide_rag.relevant_figures(question, docs),
+        'safety_refusal': False,
+    }
 
 @app.get('/health/ready')
 async def ready():

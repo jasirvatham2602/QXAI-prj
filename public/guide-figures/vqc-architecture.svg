@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">QXAI four-qubit variational quantum circuit architecture</title>
+  <desc id="desc">A 1280-feature vector is encoded to four values, mapped to four qubits, processed by four trainable entangling layers, measured, and classified by a classical neural head.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f8fcfa"/><stop offset="1" stop-color="#edf5fb"/></linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5 0 10z" fill="#64877e"/></marker>
+    <style>.h{font:700 29px Arial,sans-serif;fill:#163b3d}.s{font:16px Arial,sans-serif;fill:#61777b}.label{font:700 16px Arial,sans-serif;fill:#174f49}.small{font:14px Arial,sans-serif;fill:#526a70}.box{fill:#fff;stroke:#cce3da;stroke-width:2}.qbox{fill:#e4f4ed;stroke:#a9d8c5;stroke-width:2}.line{stroke:#789a90;stroke-width:3;marker-end:url(#arrow)}.wire{stroke:#677d87;stroke-width:3}.note{font:13px Arial,sans-serif;fill:#70828a}</style>
+  </defs>
+  <rect width="1200" height="650" rx="24" fill="url(#bg)"/>
+  <text x="48" y="58" class="h">QXAI variational quantum circuit (VQC)</text>
+  <text x="48" y="88" class="s">The implemented hybrid path from image features to three class scores</text>
+  <rect x="48" y="214" width="150" height="100" rx="16" class="box"/><text x="123" y="250" text-anchor="middle" class="label">1280 features</text><text x="123" y="278" text-anchor="middle" class="small">EfficientNet-B0</text>
+  <path d="M200 264h25" class="line"/>
+  <rect x="232" y="214" width="154" height="100" rx="16" class="box"/><text x="309" y="248" text-anchor="middle" class="label">Linear encoder</text><text x="309" y="276" text-anchor="middle" class="small">1280 → 4 → tanh</text>
+  <path d="M388 264h25" class="line"/>
+  <rect x="420" y="214" width="142" height="100" rx="16" class="box"/><text x="491" y="248" text-anchor="middle" class="label">AngleEmbedding</text><text x="491" y="276" text-anchor="middle" class="small">X rotations</text>
+  <path d="M564 264h24" class="line"/>
+  <rect x="594" y="174" width="341" height="250" rx="18" fill="#fff" stroke="#bfd9e4" stroke-width="2"/>
+  <text x="764" y="205" text-anchor="middle" class="label">Four BasicEntanglerLayers</text>
+  <g class="wire"><path d="M620 246h288M620 288h288M620 330h288M620 372h288"/></g>
+  <g fill="#fff" stroke="#51a48b" stroke-width="3">
+    <rect x="650" y="232" width="30" height="28" rx="7"/><rect x="650" y="274" width="30" height="28" rx="7"/><rect x="650" y="316" width="30" height="28" rx="7"/><rect x="650" y="358" width="30" height="28" rx="7"/>
+    <rect x="710" y="232" width="30" height="28" rx="7"/><rect x="710" y="274" width="30" height="28" rx="7"/><rect x="710" y="316" width="30" height="28" rx="7"/><rect x="710" y="358" width="30" height="28" rx="7"/>
+    <rect x="770" y="232" width="30" height="28" rx="7"/><rect x="770" y="274" width="30" height="28" rx="7"/><rect x="770" y="316" width="30" height="28" rx="7"/><rect x="770" y="358" width="30" height="28" rx="7"/>
+    <rect x="830" y="232" width="30" height="28" rx="7"/><rect x="830" y="274" width="30" height="28" rx="7"/><rect x="830" y="316" width="30" height="28" rx="7"/><rect x="830" y="358" width="30" height="28" rx="7"/>
+  </g>
+  <g font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#287762" text-anchor="middle"><text x="665" y="251">RX</text><text x="665" y="293">RX</text><text x="665" y="335">RX</text><text x="665" y="377">RX</text><text x="725" y="223">L2</text><text x="785" y="223">L3</text><text x="845" y="223">L4</text><text x="665" y="223">L1</text>
+    <text x="725" y="251">RX</text><text x="725" y="293">RX</text><text x="725" y="335">RX</text><text x="725" y="377">RX</text><text x="785" y="251">RX</text><text x="785" y="293">RX</text><text x="785" y="335">RX</text><text x="785" y="377">RX</text><text x="845" y="251">RX</text><text x="845" y="293">RX</text><text x="845" y="335">RX</text><text x="845" y="377">RX</text></g>
+  <g fill="#16846f"><circle cx="695" cy="246" r="5"/><circle cx="695" cy="288" r="5"/><circle cx="695" cy="330" r="5"/><circle cx="695" cy="372" r="5"/><circle cx="755" cy="246" r="5"/><circle cx="755" cy="288" r="5"/><circle cx="755" cy="330" r="5"/><circle cx="755" cy="372" r="5"/><circle cx="815" cy="246" r="5"/><circle cx="815" cy="288" r="5"/><circle cx="815" cy="330" r="5"/><circle cx="815" cy="372" r="5"/></g>
+  <g stroke="#16846f" stroke-width="2.5" fill="none"><path d="M695 246v42M695 288v42M695 330v42M695 372Q695 246 695 246"/><path d="M755 246v42M755 288v42M755 330v42M755 372Q755 246 755 246"/><path d="M815 246v42M815 288v42M815 330v42M815 372Q815 246 815 246"/></g>
+  <text x="764" y="408" text-anchor="middle" class="note">Trainable RX rotations + ring of CNOT entanglers (schematic)</text>
+  <path d="M938 264h23" class="line"/>
+  <rect x="968" y="214" width="108" height="100" rx="16" class="box"/><text x="1022" y="249" text-anchor="middle" class="label">Measure</text><text x="1022" y="277" text-anchor="middle" class="small">4 × Pauli-Z</text>
+  <path d="M1078 264h21" class="line"/>
+  <rect x="1105" y="214" width="76" height="100" rx="14" class="box"/><text x="1143" y="249" text-anchor="middle" class="label">Head</text><text x="1143" y="277" text-anchor="middle" class="small">4→64→3</text>
+  <rect x="204" y="486" width="792" height="77" rx="16" fill="#fff5df" stroke="#ecd7a8" stroke-width="2"/>
+  <text x="600" y="518" text-anchor="middle" class="label" fill="#795d24">Classical simulation</text>
+  <text x="600" y="543" text-anchor="middle" class="small">PennyLane default.qubit simulates this circuit; the project does not claim quantum advantage.</text>
+  <text x="48" y="614" class="small">Outputs correspond to AD, control, and PD classes. Diagram summarizes the current implementation.</text>
+</svg>

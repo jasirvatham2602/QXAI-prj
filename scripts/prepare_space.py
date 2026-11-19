@@ -14,7 +14,7 @@ args=parser.parse_args()
 bundle=load_bundle(args.models)
 if args.destination.exists():raise SystemExit('Choose a new staging directory')
 args.destination.mkdir(parents=True)
-files=['main.py','service.py','settings.py','storage.py','admin_access.py','model_bundle.py','inference.py','worker.py','run_inference.py','start_space.py','requirements-space.txt']
+files=['main.py','service.py','settings.py','storage.py','admin_access.py','model_bundle.py','inference.py','worker.py','run_inference.py','start_space.py','guide_rag.py','requirements-space.txt']
 for name in files:shutil.copyfile(root/'backend'/name,args.destination/name)
 shutil.copyfile(root/'backend/Dockerfile.space',args.destination/'Dockerfile')
 for name in ['model_manifest.json','xai_model.pth','qxai_model.pth']:shutil.copyfile(args.models/name,args.destination/name)

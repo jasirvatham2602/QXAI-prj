@@ -22,7 +22,7 @@ parser.add_argument('staging',type=Path)
 parser.add_argument('--apply',action='store_true',help='Update the existing Space; never request paid hardware')
 args=parser.parse_args()
 bundle=load_bundle(args.staging)
-expected={'main.py','service.py','settings.py','storage.py','admin_access.py','model_bundle.py','inference.py','worker.py','run_inference.py','start_space.py','requirements-space.txt','Dockerfile','README.md','model_manifest.json','xai_model.pth','qxai_model.pth'}
+expected={'main.py','service.py','settings.py','storage.py','admin_access.py','model_bundle.py','inference.py','worker.py','run_inference.py','start_space.py','guide_rag.py','requirements-space.txt','Dockerfile','README.md','model_manifest.json','xai_model.pth','qxai_model.pth'}
 if {p.name for p in args.staging.iterdir()}!=expected or any(not p.is_file() or p.is_symlink() for p in args.staging.iterdir()):raise ValueError('Unexpected runtime files')
 api=HfApi();info=api.space_info(REPO)
 runtime=api.get_space_runtime(REPO)
@@ -34,8 +34,15 @@ public={'SUPABASE_URL':settings['SUPABASE_URL'],'SUPABASE_PUBLISHABLE_KEY':setti
         'FRONTEND_ORIGINS':'https://blue-qxai-prj.netlify.app,http://127.0.0.1:5174,http://localhost:5174',
         'QXAI_ENV':'production','QXAI_MODEL_DIR':'/app'}
 secret=settings.get('SUPABASE_SECRET_KEY') or settings['SUPABASE_SERVICE_ROLE_KEY']
+llm_key=settings.get('QXAI_LLM_API_KEY','').strip()
+llm_model=settings.get('QXAI_LLM_MODEL','').strip()
+if bool(llm_key)!=bool(llm_model):raise ValueError('Configure both QXAI_LLM_API_KEY and QXAI_LLM_MODEL before deployment')
+if llm_key:
+    public['QXAI_LLM_MODEL']=llm_model
+    if settings.get('QXAI_LLM_BASE_URL','').strip():public['QXAI_LLM_BASE_URL']=settings['QXAI_LLM_BASE_URL'].strip()
 # Add only to the existing backend's server-side secret store, never to source files.
 api.add_space_secret(REPO,key='SUPABASE_SECRET_KEY',value=secret)
+if llm_key:api.add_space_secret(REPO,key='QXAI_LLM_API_KEY',value=llm_key)
 for name,value in public.items():api.add_space_variable(REPO,key=name,value=value)
 commit=api.upload_folder(repo_id=REPO,repo_type='space',folder_path=args.staging,commit_message='Deploy authenticated research workspace and evaluated '+bundle['model_version'])
 print('Updated existing CPU Basic Space. Commit:',commit.oid)
