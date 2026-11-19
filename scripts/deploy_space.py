@@ -30,10 +30,15 @@ if info.sdk!='docker' or str(runtime.hardware) not in ('cpu-basic','SpaceHardwar
 if not args.apply:
     print('Validated existing free Space and runtime bundle. No remote changes made.');raise SystemExit()
 settings={**dotenv_values(root/'backend/.env.local'),**dotenv_values(root/'backend/.env.worker.local')}
-public={'SUPABASE_URL':settings['SUPABASE_URL'],'SUPABASE_PUBLISHABLE_KEY':settings.get('SUPABASE_PUBLISHABLE_KEY') or settings['SUPABASE_ANON_KEY'],
-        'FRONTEND_ORIGINS':'https://blue-qxai-prj.netlify.app,http://127.0.0.1:5174,http://localhost:5174',
+public={'FRONTEND_ORIGINS':'https://blue-qxai-prj.netlify.app,http://127.0.0.1:5174,http://localhost:5174',
         'QXAI_ENV':'production','QXAI_MODEL_DIR':'/app'}
-secret=settings.get('SUPABASE_SECRET_KEY') or settings['SUPABASE_SERVICE_ROLE_KEY']
+supabase_url=settings.get('SUPABASE_URL','').strip()
+supabase_key=(settings.get('SUPABASE_PUBLISHABLE_KEY') or settings.get('SUPABASE_ANON_KEY') or '').strip()
+if bool(supabase_url)!=bool(supabase_key):raise ValueError('Configure both the Supabase URL and publishable key, or omit both to preserve the existing Space settings')
+if supabase_url:
+    public['SUPABASE_URL']=supabase_url
+    public['SUPABASE_PUBLISHABLE_KEY']=supabase_key
+secret=(settings.get('SUPABASE_SECRET_KEY') or settings.get('SUPABASE_SERVICE_ROLE_KEY') or '').strip()
 llm_key=settings.get('QXAI_LLM_API_KEY','').strip()
 llm_model=settings.get('QXAI_LLM_MODEL','').strip()
 if bool(llm_key)!=bool(llm_model):raise ValueError('Configure both QXAI_LLM_API_KEY and QXAI_LLM_MODEL before deployment')
@@ -41,7 +46,7 @@ if llm_key:
     public['QXAI_LLM_MODEL']=llm_model
     if settings.get('QXAI_LLM_BASE_URL','').strip():public['QXAI_LLM_BASE_URL']=settings['QXAI_LLM_BASE_URL'].strip()
 # Add only to the existing backend's server-side secret store, never to source files.
-api.add_space_secret(REPO,key='SUPABASE_SECRET_KEY',value=secret)
+if secret:api.add_space_secret(REPO,key='SUPABASE_SECRET_KEY',value=secret)
 if llm_key:api.add_space_secret(REPO,key='QXAI_LLM_API_KEY',value=llm_key)
 for name,value in public.items():api.add_space_variable(REPO,key=name,value=value)
 commit=api.upload_folder(repo_id=REPO,repo_type='space',folder_path=args.staging,commit_message='Deploy authenticated research workspace and evaluated '+bundle['model_version'])
