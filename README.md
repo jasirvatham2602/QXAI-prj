@@ -11,6 +11,7 @@
 - [What the platform does](#what-the-platform-does)
 - [Current model evaluation](#current-model-evaluation)
 - [How the models work](#how-the-models-work)
+- [Developer reflection](#developer-reflection)
 - [Platform and deployment](#platform-and-deployment)
 - [IBM SkillsBuild cloud fundamentals in practice](#ibm-skillsbuild-cloud-fundamentals-in-practice)
 - [Run locally](#run-locally)
@@ -69,6 +70,10 @@ Earlier reported results (including 89.46% XAI and 86.52% QXAI) use a different 
 Both models use an EfficientNet-B0 image feature extractor and classify the three dataset categories: Alzheimer’s disease (AD), Parkinson’s disease (PD), and control. Classical XAI uses a classical classification head. QXAI maps image features into a four-qubit variational circuit, then uses measured circuit outputs for classification. PennyLane simulates the circuit on a classical computer. Saliency maps help visualize which image regions influenced a prediction; they do not explain or validate a clinical diagnosis.
 
 The project’s original research write-up, including its architecture illustrations and historical saliency examples, is available in [`docs/original-research/`](docs/original-research/README.md).
+
+## Developer reflection
+
+My favorite part of developing this project was learning how quantum machine learning works. Building the bottleneck architecture fascinated me and helped me apply concepts I learned in CSI 4900 Quantum Computing at Oakland University.
 
 ## Platform and deployment
 

@@ -24,6 +24,13 @@ DOCS: list[dict[str, Any]] = [
         "text": "QXAI's goal, purpose, and objective are to build a research and educational workspace that compares classical image classification with simulated quantum-classical explainable AI on brain MRI images, and to make the models, results, and software understandable. The app includes an analysis dashboard, saliency visualizations, private per-user histories, an admin review area, and PDF, HTML, and JSON reports. It is a research and educational demonstration, not a clinically validated diagnostic tool.",
     },
     {
+        "id": "developer-reflection",
+        "title": "Developer reflection on quantum machine learning",
+        "source": "Developer reflection",
+        "url": "https://github.com/jasirvatham2602/QXAI-prj/blob/main/README.md#developer-reflection",
+        "text": "The developer's favorite part of building QXAI was learning how quantum machine learning works. Putting together the bottleneck architecture was fascinating and helped the developer apply concepts learned in CSI 4900 Quantum Computing at Oakland University. The hybrid bottleneck maps classical image features to a compact four-value representation before encoding them into a variational quantum circuit.",
+    },
+    {
         "id": "model-architecture",
         "title": "Classical and hybrid model architecture",
         "source": "Model card",
@@ -75,7 +82,7 @@ DOCS: list[dict[str, Any]] = [
         "title": "Paired statistical comparison",
         "source": "Statistical comparison",
         "url": "https://github.com/jasirvatham2602/QXAI-prj/blob/main/models/candidates/cleaned-v3-seed42/STATISTICAL_COMPARISON.md",
-        "text": "The paired exact two-sided McNemar test for XAI and QXAI predictions gives p equal to 0.5413. The observed accuracy difference is not statistically significant at alpha 0.05 or 0.10. This does not establish the models are equivalent. The dataset does not include subject identifiers, so patient-level independence cannot be established and near duplicates or patient overlap cannot be ruled out.",
+        "text": "The paired exact two-sided McNemar test for XAI and QXAI predictions gives p equal to 0.5413. The observed accuracy difference is not statistically significant at alpha 0.05 or 0.10. The classical XAI model scored 87.22 percent accuracy versus 86.24 percent for hybrid QXAI, a 0.98 percentage-point difference on this test set. This modest observed difference is not statistically significant and does not establish that the models are equivalent or that either is generally better. The dataset does not include subject identifiers, so patient-level independence cannot be established and near duplicates or patient overlap cannot be ruled out.",
     },
     {
         "id": "metric-definitions",
@@ -151,6 +158,20 @@ def _tokens(text: str) -> list[str]:
 def retrieve(question: str, limit: int = 5) -> list[dict[str, Any]]:
     """Small dependency-free TF-IDF retrieval over reviewed public passages."""
     query = _tokens(question)
+    q_lower = question.lower()
+
+    # First-person questions about the builder's perspective need the explicit
+    # reflection passage; it is not appropriate to ask the model to infer this.
+    if re.search(r"\b(favorite|favourite|most enjoyed|enjoyable|interesting part|fascinat)\b", q_lower):
+        return [next(doc for doc in DOCS if doc["id"] == "developer-reflection")]
+
+    # Questions asking which model is better require both the measured scores
+    # and the paired statistical comparison, including its caveat.
+    if re.search(r"\b(which|what)\b.*\b(better|best|outperform\w*|superior)\b|\b(better|best|outperform\w*|superior)\b.*\b(model|classical|qxai|quantum)\b", q_lower):
+        return [
+            next(doc for doc in DOCS if doc["id"] == "evaluation-results"),
+            next(doc for doc in DOCS if doc["id"] == "statistical-comparison"),
+        ]
     goal_question = re.search(
         r"\b(goal|goals|purpose|objective|objectives|aim|aims)\b",
         question,
