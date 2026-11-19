@@ -21,7 +21,7 @@ DOCS: list[dict[str, Any]] = [
         "title": "QXAI project overview",
         "source": "Project overview",
         "url": "https://github.com/jasirvatham2602/QXAI-prj/blob/main/README.md",
-        "text": "QXAI is a research workspace comparing classical image classification with simulated quantum-classical explainable AI on brain MRI images. The app includes an analysis dashboard, saliency visualizations, private per-user histories, an admin review area, and PDF HTML and JSON reports. It is a research and educational demonstration, not a clinically validated diagnostic tool.",
+        "text": "QXAI's goal, purpose, and objective are to build a research and educational workspace that compares classical image classification with simulated quantum-classical explainable AI on brain MRI images, and to make the models, results, and software understandable. The app includes an analysis dashboard, saliency visualizations, private per-user histories, an admin review area, and PDF, HTML, and JSON reports. It is a research and educational demonstration, not a clinically validated diagnostic tool.",
     },
     {
         "id": "model-architecture",
@@ -151,8 +151,25 @@ def _tokens(text: str) -> list[str]:
 def retrieve(question: str, limit: int = 5) -> list[dict[str, Any]]:
     """Small dependency-free TF-IDF retrieval over reviewed public passages."""
     query = _tokens(question)
+    goal_question = re.search(
+        r"\b(goal|goals|purpose|objective|objectives|aim|aims)\b",
+        question,
+        re.IGNORECASE,
+    )
+    specific_topic = {"vqc", "circuit", "qubit", "quantum", "model", "architecture", "hybrid", "classical"}
+    if goal_question and not specific_topic.intersection(query):
+        return [DOCS[0]]
     if not query:
-        return []
+        # Broad conversational prompts such as "tell me about this project"
+        # become empty after stop-word removal. Ground them in the reviewed
+        # overview rather than returning the no-source fallback.
+        broad_prompt = re.search(
+            r"\b(project|qxai|workspace|research)\b|\b(what|tell|describe|explain|overview)\b",
+            question,
+            re.IGNORECASE,
+        )
+        return [DOCS[0]] if broad_prompt else []
+
     query_counts = Counter(query)
     document_tokens = [_tokens(doc["text"] + " " + doc["title"]) for doc in DOCS]
     document_frequency = Counter(token for tokens in document_tokens for token in set(tokens))
@@ -168,6 +185,10 @@ def retrieve(question: str, limit: int = 5) -> list[dict[str, Any]]:
             scored.append((score, doc))
     scored.sort(key=lambda item: item[0], reverse=True)
     if not scored or scored[0][0] < 0.3:
+        # If a question is plainly asking for a project overview, answer from
+        # the overview passage even when its wording has no lexical overlap.
+        if re.search(r"\b(project|qxai|workspace|research)\b", question, re.IGNORECASE):
+            return [DOCS[0]]
         return []
     return [doc for _, doc in scored[:limit]]
 
